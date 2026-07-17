@@ -1,0 +1,61 @@
+{
+  "name": "pi-designer",
+  "version": "6.0.0",
+  "type": "module",
+  "description": "Native Pi UI/UX workflow with five conditional skills, evidence-aware planning, and browser-first review.",
+  "keywords": ["pi-package", "pi", "design", "ui", "ux", "design-system", "animation", "frontend", "anti-slop"],
+  "author": "Leandro",
+  "license": "MIT",
+  "repository": { "url": "git+https://github.com/drvova/pi-designer.git" },
+  "pi": {
+    "extensions": ["./app/pi-extension.ts"],
+    "skills": ["./skills"],
+    "image": "https://pi.dev/logo-auto.svg"
+  },
+  "files": [
+    "app/pi-extension.ts",
+    "entities/",
+    "features/",
+    "skills/",
+    "data/",
+    "shared/",
+    "scripts/analyze-layout.mjs",
+    "scripts/audit-data.mjs",
+    "scripts/check-release.mjs",
+    "scripts/fix-ai-slop.mjs",
+    "scripts/benchmarks/",
+    "scripts/design-review-cli.mjs",
+    "docs/",
+    "AGENTS.md",
+    "architecture.md",
+    "package.json"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test:extension": "bun test scripts/__tests__/extension.test.ts",
+    "test:validators": "node scripts/__tests__/fix-ai-slop.test.mjs",
+    "test:layout": "node scripts/__tests__/analyze-layout.test.mjs",
+    "test:data": "node scripts/audit-data.mjs",
+    "test:prompt": "node scripts/__tests__/prompt-contract.test.mjs",
+    "test:docs": "node scripts/__tests__/docs-contract.test.mjs",
+    "test:quality": "node scripts/__tests__/design-quality.test.mjs",
+    "test:screenshots": "node scripts/__tests__/screenshot-analysis.test.mjs",
+    "test:cleanup": "node scripts/__tests__/cleanup-artifacts.test.mjs",
+    "cleanup:artifacts": "node scripts/cleanup-artifacts.mjs",
+    "test:security": "node scripts/__tests__/security.test.mjs",
+    "test": "npm run typecheck && npm run test:extension && npm run test:validators && npm run test:layout && npm run test:data && npm run test:prompt && npm run test:docs && npm run test:quality && npm run test:screenshots && npm run test:cleanup && npm run test:security",
+    "e2e:smoke": "bun scripts/e2e-smoke.mjs",
+    "benchmark:intent": "bun scripts/benchmarks/design-intent.ts",
+    "review:visual": "node scripts/design-review-cli.mjs",
+    "gallery": "node scripts/build-gallery.mjs",
+    "check:release": "node scripts/check-release.mjs",
+    "prepublishOnly": "npm test && npm run check:release"
+  },
+  "engines": { "node": ">=20.19.0" },
+  "peerDependencies": { "@mariozechner/pi-coding-agent": "*" },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "^0.73.1",
+    "@types/node": "^26.0.1",
+    "typescript": "^6.0.3"
+  }
+}

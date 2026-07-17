@@ -1,0 +1,8 @@
+node_modules/
+.env
+.env.*
+!.env.example
+test-output/
+.pi/
+*.log
+pi-session-*.html

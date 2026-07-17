@@ -2,17 +2,15 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const extension = readFileSync("shared/designer-prompt.ts", "utf8");
-const skills = readFileSync("skills/designer-master.md", "utf8");
-const source = `${extension}\n${skills}`;
+const tool = readFileSync("features/designer-tool/index.ts", "utf8");
+const app = readFileSync("app/pi-extension.ts", "utf8");
+const source = `${tool}\n${app}`;
 const checks = [
-  ["native Pi package", /native Pi/i.test(source)],
-  ["no skill-read gate", !/tool_call.*gate|skill-read hard gate/i.test(source)],
-  ["immediate builds do not ask questions", /build immediately, do not ask preference questions/i.test(source)],
-  ["approval plans stay read-only", /plan or approval, stay read-only, write no project files/i.test(source)],
-  ["product facts are closed", /closed fact set/i.test(source)],
-  ["simulated AI is labelled", /simulated AI interaction as live reasoning/i.test(source)],
-  ["responsive and accessible implementation", /semantic HTML, visible focus, keyboard behavior, responsive layouts/i.test(source)],
+  ["designer is a deferred tool", /registerTool\(/.test(tool)],
+  ["no before_agent_start injection", !/before_agent_start/.test(source)],
+  ["no resources_discover", !/resources_discover/.test(source)],
+  ["lightweight prompt snippet", /promptSnippet/.test(tool)],
+  ["no heavy prompt always injected", !/DESIGNER_PROMPT.*systemPrompt/.test(source)],
   ["no secondary host coupling", !/\bOMP\b|oh-my-pi|session_stop|\.omp\//i.test(source)],
 ];
 let failed = 0;

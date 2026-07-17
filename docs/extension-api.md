@@ -30,7 +30,7 @@ has no need to intercept tools or create an artificial delivery gate.
 
 ## Activation
 
-- Obvious design prompts activate through a local classifier before the agent starts.
+- The designer workflow is always available. The model decides when to use the design skills.
 - `/designer` toggles state for the current working directory.
 - `PI_DESIGNER_MODE=1` forces the workflow on.
 - `PI_DESIGNER_MODE=0` forces it off.

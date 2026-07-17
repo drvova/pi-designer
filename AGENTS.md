@@ -29,7 +29,8 @@ into a second discovery path.
 - `/designer-vibe` persists project preferences and `/designer-doctor` reports health.
 - `resources_discover` exposes package-relative skills only while enabled.
 - `before_agent_start` injects one normalized prompt only while enabled.
-- Obvious design prompts activate through a local classifier; `/designer` and `PI_DESIGNER_MODE=1|0` remain explicit overrides.
+- The designer workflow is always available; the model uses the skills when the task needs them.
+- `/designer` toggles the workflow off for the current working directory.
 - Pi tests simulate the documented extension surface; they are not live-model E2E proof.
 
 ## Architecture rules

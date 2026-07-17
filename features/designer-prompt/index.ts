@@ -11,7 +11,7 @@ export function asksForApprovalPlan(prompt: string): boolean {
 }
 
 export interface PromptInjectionDependencies {
-  shouldActivate(cwd: string, prompt: string): boolean;
+  isEnabled(cwd: string): boolean;
   getVibe(cwd: string): string | undefined;
 }
 
@@ -21,7 +21,7 @@ function promptWithVibe(prompt: string, vibe: string | undefined): string {
 
 export function registerPromptInjection(pi: ExtensionAPI, dependencies: PromptInjectionDependencies): void {
   pi.on("before_agent_start", (event: BeforeAgentStartEvent, ctx: ExtensionContext) => {
-    if (!dependencies.shouldActivate(ctx.cwd, event.prompt)) return;
+    if (!dependencies.isEnabled(ctx.cwd)) return;
     const prompt = promptWithVibe(asksForApprovalPlan(event.prompt) ? PLAN_ONLY_PROMPT : DESIGNER_PROMPT, dependencies.getVibe(ctx.cwd));
     const systemPrompt = event.systemPrompt.replace(PROMPT_MARKER_RE, "").trim();
     return { systemPrompt: systemPrompt ? `${systemPrompt}\n\n${prompt}` : prompt };

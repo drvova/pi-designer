@@ -30,9 +30,9 @@ The mode is stored per project. Automation can override persisted state with
 project preferences, and `/designer-doctor` reports the native Pi package and
 skill assets.
 
-The extension activates automatically for obvious design requests using a fast
-local classifier. `/designer` remains the explicit per-project toggle, while
-`PI_DESIGNER_MODE=1` forces activation and `PI_DESIGNER_MODE=0` disables it.
+The extension is always available. Skills are exposed and the designer prompt
+is injected on every turn — the model decides when to use them. Use `/designer`
+to toggle off for a project, or set `PI_DESIGNER_MODE=0` to disable globally.
 
 ## What loads
 

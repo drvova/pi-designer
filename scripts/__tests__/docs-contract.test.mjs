@@ -13,7 +13,7 @@ const checks = [
   ["explicit Pi entrypoint", JSON.stringify(pkg.pi.extensions) === JSON.stringify(["./app/pi-extension.ts"])],
   ["no secondary host manifest", !pkg.omp],
   ["native install docs", /pi install npm:pi-designer/.test(readme) && /pi install npm:pi-designer/.test(agents)],
-  ["activation contract", /PI_DESIGNER_MODE=1\|0/.test(agents) && /activates automatically/.test(readme)],
+  ["activation contract", /PI_DESIGNER_MODE/.test(agents) && /always available/.test(readme)],
   ["feature slices documented", /app\/pi-extension\.ts[\s\S]*entities\/designer-skill[\s\S]*features\/[\s\S]*mode-activation[\s\S]*designer-prompt[\s\S]*designer-resources/.test(architecture)],
   ["native API documented", /ExtensionAPI/.test(api) && /before_agent_start/.test(api)],
   ["unsupported hooks rejected", /does not register `session_stop`/.test(api)],

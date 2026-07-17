@@ -47,7 +47,6 @@ these boundaries so a feature cannot quietly become another composition root.
 Pi loads package
   -> app/pi-extension.ts composes feature registrations
   -> /designer toggles the current cwd
-  -> local design-intent classifier checks each prompt
   -> resources_discover exposes skills
   -> before_agent_start injects one normalized prompt when enabled
   -> Pi continues its normal agent lifecycle
@@ -61,16 +60,8 @@ activation returns `undefined` when disabled and `{ skillPaths }` when enabled.
 
 State is per working directory and persisted beneath Pi's configured agent
 folder. The extension uses no provider-specific API, MCP mutation, or tool
-interception. Automatic activation is a local classifier, never an extra model call. User-controlled MCP configuration stays
+interception. User-controlled MCP configuration stays
 owned by Pi and the user.
-
-## Benchmark
-
-`npm run benchmark:intent` measures the local activation classifier across a
-balanced design/non-design corpus. It reports accuracy, throughput, and p50/p95/p99
-latency. The benchmark never calls a model or agent, so its result isolates the
-automatic activation decision rather than conflating it with provider latency.
-
 ## Verification
 
 Run `npm test` and `npm run check:release`. The extension tests use the real

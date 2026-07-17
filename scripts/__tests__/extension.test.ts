@@ -19,14 +19,14 @@ function makeApi() {
 }
 
 describe("native Pi designer extension", () => {
-  test("registers commands, a designer tool, and no always-on hooks", () => {
+  test("registers commands and deferred tools, no always-on hooks", () => {
     const { commands, handlers, tools } = makeApi();
     expect([...commands.keys()]).toEqual(["designer", "designer-vibe", "designer-doctor"]);
     expect(tools.has("designer")).toBe(true);
+    expect(tools.has("design_deck")).toBe(true);
     expect(handlers.has("before_agent_start")).toBe(false);
     expect(handlers.has("resources_discover")).toBe(false);
     expect(handlers.has("session_stop")).toBe(false);
-    expect(handlers.has("tool_call")).toBe(false);
   });
 
   test("designer tool loads skill content on demand", async () => {
@@ -53,6 +53,28 @@ describe("native Pi designer extension", () => {
     expect(tool.promptSnippet).toBeDefined();
     expect((tool.promptSnippet as string).length).toBeLessThan(120);
     expect(handlers.size).toBe(0);
+  });
+
+  test("design deck tool exists with correct actions", () => {
+    const { tools } = makeApi();
+    const tool = tools.get("design_deck")!;
+    expect(tool.name).toBe("design_deck");
+    expect(tool.promptSnippet).toBeDefined();
+    expect((tool.promptSnippet as string).length).toBeLessThan(120);
+  });
+
+  test("design deck tool rejects unknown actions", async () => {
+    const { tools } = makeApi();
+    const tool = tools.get("design_deck")!;
+    const result = await tool.execute("id", { action: "bogus" }, undefined, undefined, { cwd: process.cwd() });
+    expect(result.content[0].text).toContain("Unknown action");
+  });
+
+  test("design deck tool handles close without active deck", async () => {
+    const { tools } = makeApi();
+    const tool = tools.get("design_deck")!;
+    const result = await tool.execute("id", { action: "close" }, undefined, undefined, { cwd: process.cwd() });
+    expect(result.content[0].text).toContain("Deck closed");
   });
 
   test("all declared skills exist on disk", async () => {

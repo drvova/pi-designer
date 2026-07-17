@@ -1,4 +1,5 @@
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import { registerDeckTool } from "../features/designer-deck/index.ts";
 import { registerDoctorCommand } from "../features/designer-doctor/index.ts";
 import { DESIGNER_SKILLS } from "../features/designer-resources/index.ts";
 import { registerDesignerTool } from "../features/designer-tool/index.ts";
@@ -16,5 +17,8 @@ export default function designerExtension(pi: ExtensionAPI): void {
   });
   registerVibeCommand(pi);
   registerDoctorCommand(pi, { isEnabled, skills: DESIGNER_SKILLS });
-  if (isEnabled(process.cwd())) registerDesignerTool(pi, { getVibe });
+  if (isEnabled(process.cwd())) {
+    registerDesignerTool(pi, { getVibe });
+    registerDeckTool(pi);
+  }
 }

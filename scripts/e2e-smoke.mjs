@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-/** Native Pi extension smoke check using the documented tool surface. */
+/** Native Pi extension smoke check. */
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
@@ -27,9 +27,14 @@ const tests = [];
 const failures = [];
 const check = (name, fn) => { try { fn(); tests.push(name); } catch (error) { failures.push({ name, reason: error instanceof Error ? error.message : String(error) }); } };
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
-check("native commands", () => assert(JSON.stringify(commands.map(({ name }) => name)) === JSON.stringify(["designer", "designer-vibe", "designer-doctor"]), "unexpected command registration"));
-check("deferred tools registered", () => assert(JSON.stringify(tools) === JSON.stringify(["designer", "design_deck"]), "expected designer and design_deck tools"));
-check("no always-on hooks", () => assert(handlers.size === 0, "expected zero always-on hooks"));
+check("native commands", () => assert(JSON.stringify(commands.map(({ name }) => name)) === JSON.stringify(["designer", "designer-vibe", "designer-doctor"]), "unexpected commands"));
+check("deferred tools registered", () => assert(JSON.stringify(tools) === JSON.stringify(["designer", "design_deck"]), "expected designer + design_deck"));
+check("design rules always-on hook", () => assert(handlers.has("before_agent_start"), "expected before_agent_start for design rules"));
+check("rules injected on every prompt", () => {
+  const result = handlers.get("before_agent_start")({ prompt: "fix my database query", systemPrompt: "base" }, { cwd: process.cwd() });
+  assert(result?.systemPrompt?.includes("[DESIGN RULES]"), "design rules not injected");
+});
+check("no session_stop or tool gates", () => assert(!handlers.has("session_stop") && !handlers.has("tool_call"), "unexpected gates"));
 const report = { mode: "simulated", host: "pi", tests, skipped: [], failures, artifacts: reportPath ? [reportPath] : [] };
 if (reportPath) { mkdirSync(dirname(reportPath), { recursive: true }); writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`); }
 console.log(JSON.stringify(report, null, 2));

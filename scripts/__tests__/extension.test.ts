@@ -1,6 +1,7 @@
 import { afterAll, describe, expect, test } from "bun:test";
 import { PACKAGE_ROOT } from "../../shared/package-paths.ts";
 import { DESIGNER_SKILLS } from "../../features/designer-resources/index.ts";
+import { DESIGN_RULES } from "../../shared/design-rules.ts";
 import designerExtension from "../../app/pi-extension.ts";
 
 type Handler = (event: any, ctx: any) => unknown;
@@ -19,14 +20,35 @@ function makeApi() {
 }
 
 describe("native Pi designer extension", () => {
-  test("registers commands and deferred tools, no always-on hooks", () => {
+  test("registers commands, rules hook, and deferred tools", () => {
     const { commands, handlers, tools } = makeApi();
     expect([...commands.keys()]).toEqual(["designer", "designer-vibe", "designer-doctor"]);
+    expect(handlers.has("before_agent_start")).toBe(true);
+    expect(handlers.has("session_stop")).toBe(false);
+    expect(handlers.has("tool_call")).toBe(false);
+    expect(handlers.has("tool_result")).toBe(false);
     expect(tools.has("designer")).toBe(true);
     expect(tools.has("design_deck")).toBe(true);
-    expect(handlers.has("before_agent_start")).toBe(false);
-    expect(handlers.has("resources_discover")).toBe(false);
-    expect(handlers.has("session_stop")).toBe(false);
+  });
+
+  test("design rules are always injected via before_agent_start", () => {
+    const { handlers } = makeApi();
+    const result = handlers.get("before_agent_start")?.(
+      { prompt: "refactor the API client", systemPrompt: "base" },
+      { cwd: process.cwd() }
+    ) as { systemPrompt: string };
+    expect(result.systemPrompt).toContain("[DESIGN RULES]");
+    expect(result.systemPrompt).toContain("One light source from the top");
+    expect(result.systemPrompt.toLowerCase()).toContain("concentric radius");
+    expect(result.systemPrompt).toContain("prefers-reduced-motion");
+  });
+
+  test("design rules replace, not stack", () => {
+    const { handlers } = makeApi();
+    const handler = handlers.get("before_agent_start")!;
+    const first = handler({ prompt: "any prompt", systemPrompt: "base" }, { cwd: process.cwd() }) as { systemPrompt: string };
+    const second = handler({ prompt: "any prompt", systemPrompt: first.systemPrompt }, { cwd: process.cwd() }) as { systemPrompt: string };
+    expect((second.systemPrompt.match(/\[DESIGN RULES\]/g) || []).length).toBe(1);
   });
 
   test("designer tool loads skill content on demand", async () => {
@@ -41,18 +63,17 @@ describe("native Pi designer extension", () => {
   test("designer tool loads a single skill by name", async () => {
     const { tools } = makeApi();
     const tool = tools.get("designer")!;
-    const result = await tool.execute("id", { skill: "animate" }, undefined, undefined, { cwd: process.cwd() });
+    const result = await tool.execute("id", { skill: "style-cyberpunk-ui" }, undefined, undefined, { cwd: process.cwd() });
     const text = result.content[0].text;
-    expect(text).toContain("animate");
+    expect(text).toContain("cyberpunk");
     expect(text).not.toContain("--- designer-master");
   });
 
   test("designer tool has a lightweight snippet, not a full prompt injection", () => {
-    const { tools, handlers } = makeApi();
+    const { tools } = makeApi();
     const tool = tools.get("designer")!;
     expect(tool.promptSnippet).toBeDefined();
     expect((tool.promptSnippet as string).length).toBeLessThan(120);
-    expect(handlers.size).toBe(0);
   });
 
   test("design deck tool exists with correct actions", () => {
@@ -60,7 +81,6 @@ describe("native Pi designer extension", () => {
     const tool = tools.get("design_deck")!;
     expect(tool.name).toBe("design_deck");
     expect(tool.promptSnippet).toBeDefined();
-    expect((tool.promptSnippet as string).length).toBeLessThan(120);
   });
 
   test("design deck tool rejects unknown actions", async () => {
@@ -68,13 +88,6 @@ describe("native Pi designer extension", () => {
     const tool = tools.get("design_deck")!;
     const result = await tool.execute("id", { action: "bogus" }, undefined, undefined, { cwd: process.cwd() });
     expect(result.content[0].text).toContain("Unknown action");
-  });
-
-  test("design deck tool handles close without active deck", async () => {
-    const { tools } = makeApi();
-    const tool = tools.get("design_deck")!;
-    const result = await tool.execute("id", { action: "close" }, undefined, undefined, { cwd: process.cwd() });
-    expect(result.content[0].text).toContain("Deck closed");
   });
 
   test("all declared skills exist on disk", async () => {

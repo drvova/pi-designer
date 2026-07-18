@@ -11,6 +11,10 @@ export const DESIGNER_SKILLS: readonly DesignerSkill[] = Object.freeze([
   { name: "expression", file: join(SKILLS_ROOT, "expression.md"), role: "expression" },
   { name: "animate", file: join(SKILLS_ROOT, "animate.md"), role: "motion" },
   { name: "review-skill", file: join(SKILLS_ROOT, "review-skill.md"), role: "review" },
+  { name: "design-laws", file: join(SKILLS_ROOT, "design-laws.md"), role: "laws" },
+  { name: "ui-polish", file: join(SKILLS_ROOT, "ui-polish.md"), role: "polish" },
+  { name: "motion-craft", file: join(SKILLS_ROOT, "motion-craft.md"), role: "motion-engineering" },
+  { name: "visual-system", file: join(SKILLS_ROOT, "visual-system.md"), role: "design-system" },
 ]);
 
 const SKILL_BY_NAME = new Map(DESIGNER_SKILLS.map((skill) => [skill.name, skill]));

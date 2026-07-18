@@ -1,50 +1,94 @@
 <svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#F8F5EE"/>
-      <stop offset="100%" stop-color="#F2EDE2"/>
+    <!-- Warm cream gradient — not flat, not dark -->
+    <linearGradient id="bg" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#FAF7F0"/>
+      <stop offset="100%" stop-color="#EDE5D5"/>
+    </linearGradient>
+    
+    <!-- Subtle noise via overlapping dots -->
+    <pattern id="noise" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="0.3" fill="#000" opacity="0.015"/>
+    </pattern>
+    
+    <!-- Amber gradient for the large number -->
+    <linearGradient id="amberGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E0A865"/>
+      <stop offset="100%" stop-color="#B87838"/>
     </linearGradient>
   </defs>
 
-  <!-- Paper background with subtle warmth -->
-  <rect width="1200" height="400" fill="url(#paper)"/>
+  <!-- Background -->
+  <rect width="1200" height="400" fill="url(#bg)"/>
+  <rect width="1200" height="400" fill="url(#noise)"/>
 
-  <!-- Single thin rule, top — sets the baseline like a real document -->
-  <rect x="80" y="48" width="1040" height="1" fill="#D4A574" opacity="0.3"/>
+  <!-- ============ THE CONCEPT: "the grid is the prison" ============ -->
+  <!-- A faint grid covers everything. The typography breaks OUT of it. -->
+  <!-- This IS what pi-designer does: breaks out of the AI-default grid. -->
+  
+  <!-- Faint grid — the "default" the tool escapes -->
+  <g stroke="#C4B89E" stroke-width="0.5" opacity="0.25">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="400" y1="0" x2="400" y2="400"/>
+    <line x1="600" y1="0" x2="600" y2="400"/>
+    <line x1="800" y1="0" x2="800" y2="400"/>
+    <line x1="1000" y1="0" x2="1000" y2="400"/>
+  </g>
 
-  <!-- Eyebrow: quiet, tracked, like a magazine masthead -->
-  <text x="80" y="40" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="4">NATIVE PI EXTENSION</text>
-  <text x="1120" y="40" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="4">V6.0.0</text>
+  <!-- Grid label — tiny, like it's a system spec, not design -->
+  <text x="8" y="98" font-family="'Courier New', monospace" font-size="7" fill="#C4B89E">y:100</text>
+  <text x="8" y="198" font-family="'Courier New', monospace" font-size="7" fill="#C4B89E">y:200</text>
+  <text x="8" y="298" font-family="'Courier New', monospace" font-size="7" fill="#C4B89E">y:300</text>
 
-  <!-- THE DESIGN: one word, enormous, bleeding past the right edge -->
-  <!-- "pi-designer" but broken so "designer" carries the weight -->
-  <text x="76" y="210" font-family="Georgia, 'Times New Roman', serif" font-size="128" font-weight="400" fill="#1A1714" letter-spacing="-6">
-    pi<tspan font-style="italic" fill="#C89060">-</tspan>designer
+  <!-- ============ TYPOGRAPHY BREAKS THE GRID ============ -->
+
+  <!-- Eyebrow — sits ON a grid line, deliberately -->
+  <text x="200" y="100" font-family="Helvetica, Arial, sans-serif" font-size="10" letter-spacing="5" fill="#8A7D6B" font-weight="700">A DESIGN RULES EXTENSION FOR PI</text>
+
+  <!-- THE WORD: enormous, starts mid-grid, crosses grid lines, italic serif -->
+  <!-- This is the confidence — the word IS bigger than the structure -->
+  <text x="186" y="230" font-family="Georgia, 'Times New Roman', serif" font-size="118" font-weight="700" fill="#2B2620" letter-spacing="-4">
+    refuse <tspan font-style="italic" fill="url(#amberGrad)">defaults.</tspan>
   </text>
 
-  <!-- The "designer" word extends past the frame — deliberate bleed -->
-  <!-- (the text naturally extends; the frame clips it visually) -->
+  <!-- "defaults." extends past the grid column at x=1000 — deliberate bleed -->
+  <!-- The gradient on "defaults." is the ONLY color besides the grid — it earns attention -->
 
-  <!-- Subtitle: tight beneath, serif italic, like editorial dek -->
-  <text x="80" y="252" font-family="Georgia, serif" font-size="18" font-style="italic" fill="#6B6358">
-    380 design skills. Rules that refuse defaults. Zero context bloat until called.
+  <!-- Subtitle: sits below, tight, like it's part of the same breath -->
+  <text x="200" y="270" font-family="Georgia, serif" font-size="16" font-style="italic" fill="#7A6F5E">
+    380 skills loaded on demand. Hard rules injected every turn. A gate that blocks generic output.
   </text>
 
-  <!-- One visual element: a vertical amber bar that interrupts the text baseline -->
-  <!-- This is the "rule-break" — a single mark that shows intention -->
-  <rect x="64" y="120" width="3" height="120" fill="#D4A574"/>
-
-  <!-- Install: monospace, small, treated as a caption not a CTA -->
-  <text x="80" y="300" font-family="'Courier New', monospace" font-size="13" fill="#6B6358">
-    $ pi install npm:pi-designer
+  <!-- Install — treated as a terminal caption, not a button -->
+  <text x="200" y="305" font-family="'Courier New', monospace" font-size="12" fill="#8A7D6B">
+    <tspan fill="#B87838">$</tspan> pi install npm:pi-designer
   </text>
 
-  <!-- Bottom: a single line of metadata, quiet -->
-  <rect x="80" y="360" width="1040" height="1" fill="#D4A574" opacity="0.2"/>
-  <text x="80" y="382" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="2">
-    380 SKILLS · 16 FEATURES · 13 PI APIS · ~575 TOKENS PER TURN
+  <!-- ============ THE ONLY STATISTIC, AS ART ============ -->
+  <!-- Not 4 stats in a grid. ONE number, enormous, in the corner, semi-transparent. -->
+  <!-- It bleeds off the bottom edge — can't contain it. -->
+  <text x="1140" y="370" text-anchor="end" font-family="Georgia, serif" font-size="220" font-weight="400" fill="url(#amberGrad)" opacity="0.07" letter-spacing="-10">380</text>
+
+  <!-- Bottom rule — closes the composition -->
+  <rect x="200" y="350" width="800" height="1" fill="#C4B89E" opacity="0.4"/>
+
+  <!-- Footer metadata — quiet, tracked, professional -->
+  <text x="200" y="372" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="3">
+    16 FEATURE SLICES
   </text>
-  <text x="1120" y="382" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="2">
+  <text x="430" y="372" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="3">
+    13 PI APIs
+  </text>
+  <text x="600" y="372" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="3">
+    ~575 TOKENS / TURN
+  </text>
+  <text x="830" y="372" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="3">
+    MIT
+  </text>
+  <text x="1000" y="372" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="2">
     GITHUB.COM/DRVOVA/PI-DESIGNER
   </text>
 </svg>

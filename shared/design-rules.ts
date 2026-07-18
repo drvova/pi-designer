@@ -1,45 +1,36 @@
 export const DESIGN_RULES = `[DESIGN RULES]
 
-## Before writing ANY frontend code — STOP and load a style
+## Stop. Before writing ANY code, answer these questions silently.
 
-You MUST call the designer tool with a style skill before writing UI. Building a page without loading a style produces generic output. The rules below constrain execution; the style skill gives the design its identity.
+If you skip this step, your output will be generic regardless of which style skill you loaded. These questions force the creative decisions a real designer makes unconsciously.
 
-How to pick a style: read the product's name, audience, and setting. Match it to a style that shares its world. Examples:
-- Marine research → call designer({ skill: "style-deep-sea-ui" }) or designer({ skill: "style-blueprint-ui" })
-- Coffee roaster → call designer({ skill: "style-warm-editorial" }) or designer({ skill: "style-coffee-shop-ui" })
-- Brutalist portfolio → call designer({ skill: "style-brutalist-ui" }) or designer({ skill: "style-neobrutalist-ui" })
-- Eco product → call designer({ skill: "style-solarpunk-ui" }) or designer({ skill: "style-cottagecore-ui" })
+### 1. What is the concept?
+Not "brutalist" or "minimal." A concept is a one-sentence visual metaphor: "this page looks like a field journal because the product is about field research." "This dashboard reads like a ship's log because it's maritime data." If you can't state it in one sentence that references the PRODUCT specifically, you have no concept — you have a template.
 
-If no style matches, call designer() with no arguments to load the full catalog and pick the closest match. Never build blind.
+### 2. What does it feel like to touch?
+Paper, glass, concrete, skin, canvas, felt, tin, bark? The material answer dictates texture, weight, border treatment, and shadow behavior. A fintech app that "feels like brushed aluminum" gets different shadows than one that "feels like warm paper." Name the material.
 
-## Think before you code
+### 3. What is the ONE move?
+Every memorable design has one decision that a safe designer would not make. An oversized number bleeding off the page. A vertical headline. A section that breaks the column entirely. A color used in exactly one place. Name the one move. Do not add a second — that dilutes the first.
 
-What is this product made of? Wood, data, sound, fabric, code, food? The answer IS the design direction. If you cannot name the material in one word, you have no art direction — ask the user.
+### 4. What is the rhythm?
+Map the page as alternation: DENSE (real data, tight type, evidence) → SPARSE (one sentence, lots of air) → DENSE → SPARSE. A page with uniform density reads as a template. The breathing is the design.
 
-## Composition is the product
+## THEN: Load a style skill
 
-A page is not sections. It is a reading path the eye follows. Design that path:
-- The eye lands on the largest element first. Make that the product's real interface, data, or material — not a headline floating in space. Show the thing.
-- Contrast dominates: one section dense with real data, the next almost empty. A breathing page feels designed. A uniform-density page feels templated.
-- Break the grid: let one element cross a boundary, bleed to an edge, or take unexpected scale. This is the page's signature. One move. Not five.
-- Display type earns its size: 4x body minimum, tight leading, negative tracking at large sizes.
+You MUST call designer({ skill: "style-XXX-ui" }) before writing any UI file. Pick a style that shares the product's world. The style provides the visual vocabulary; the questions above provide the creative intent. Together they produce specific design.
 
-## Color comes from the world
+## Color and type
 
-Derive it from the product's setting, not from a palette generator or a trend. The style skill you loaded provides the palette foundation — adapt it to the product's specifics.
+Derive from the product's actual material and setting. Not from trends, not from palette generators. The style skill gives vocabulary — adapt it to the product, don't copy it blindly. Two typefaces maximum. One speaks, one works. System-ui alone is a non-choice.
 
-## Typography is voice
+## Engineering constraints (non-negotiable, regardless of style)
 
-Two typefaces. One speaks, one works. The style skill specifies the type direction — follow it. System-ui alone is a non-choice.
+One light source from top. Concentric radius. Spacing scale 4/8/12/16/24/32/48/64. Contrast 4.5:1 body. Transform/opacity only for animation. prefers-reduced-motion. All four interaction states. Tabular numbers. text-wrap: balance headings, pretty paragraphs.
 
-## Engineering constraints (non-negotiable)
+## Statistical defaults are creative failures
 
-These apply regardless of which style skill was loaded:
-Shadows: one light source from the top. Concentric radius (outer = inner + padding). Spacing scale (4/8/12/16/24/32/48/64px). Contrast 4.5:1 minimum for body text. Transform and opacity only for animation. prefers-reduced-motion required. All four interaction states (hover, active, focus-visible, disabled). Tabular numbers for data. text-wrap: balance on headings, pretty on paragraphs.
-
-## Statistical defaults are failures
-
-Violet/purple + cyan on near-black. Gradient wallpaper heroes. Blurred decorative blobs. Three equal cards. Glassmorphism as decoration. Motion libraries only to fade sections. Headlines that fit any product. These mean the design has no thought — the style skill prevents them.
+Violet/cyan on near-black. Gradient wallpaper heroes. Blurred decorative blobs. Three equal cards. Glassmorphism as decoration. Motion only to fade in. Headlines that fit any product. These mean you skipped the four questions above. Go back and answer them.
 
 [/DESIGN RULES]`;
 

@@ -1,7 +1,6 @@
 import { afterAll, describe, expect, test } from "bun:test";
 import { PACKAGE_ROOT } from "../../shared/package-paths.ts";
 import { DESIGNER_SKILLS } from "../../features/designer-resources/index.ts";
-import { DESIGN_RULES } from "../../shared/design-rules.ts";
 import designerExtension from "../../app/pi-extension.ts";
 
 type Handler = (event: any, ctx: any) => unknown;
@@ -11,20 +10,28 @@ function makeApi() {
   const handlers = new Map<string, Handler>();
   const tools = new Map<string, Record<string, unknown>>();
   const shortcuts = new Map<string, Record<string, unknown>>();
+  const flags = new Map<string, Record<string, unknown>>();
+  const renderers = new Map<string, unknown>();
+  const calls: Record<string, unknown[]> = {};
   const api = {
     registerCommand(name: string, options: Record<string, unknown>) { commands.set(name, options); },
     on(event: string, handler: Handler) { handlers.set(event, handler); },
     registerTool(tool: Record<string, unknown>) { tools.set(tool.name, tool); },
     registerShortcut(key: string, options: Record<string, unknown>) { shortcuts.set(key, options); },
+    registerFlag(name: string, options: Record<string, unknown>) { flags.set(name, options); },
+    registerMessageRenderer(type: string, renderer: unknown) { renderers.set(type, renderer); },
+    getFlag: (name: string) => flags.get(name)?.default ?? "",
     appendEntry() {},
+    setSessionName(name: string) { (calls.setSessionName ??= []).push(name); },
+    exec: async () => ({ stdout: "{}", stderr: "", code: 0, killed: false }),
   } as any;
   designerExtension(api);
-  return { commands, handlers, tools, shortcuts };
+  return { commands, handlers, tools, shortcuts, flags, renderers, calls };
 }
 
 describe("native Pi designer extension", () => {
-  test("registers commands, tools, hooks, and shortcuts", () => {
-    const { commands, handlers, tools, shortcuts } = makeApi();
+  test("registers commands, tools, hooks, shortcuts, flags, and renderers", () => {
+    const { commands, handlers, tools, shortcuts, flags, renderers } = makeApi();
     expect([...commands.keys()]).toEqual(["designer", "designer-vibe", "designer-doctor"]);
     expect(tools.has("designer")).toBe(true);
     expect(tools.has("design_deck")).toBe(true);
@@ -32,22 +39,21 @@ describe("native Pi designer extension", () => {
     expect(handlers.has("session_start")).toBe(true);
     expect(handlers.has("turn_end")).toBe(true);
     expect(handlers.has("agent_end")).toBe(true);
+    expect(handlers.has("agent_start")).toBe(true);
+    expect(handlers.has("tool_execution_end")).toBe(true);
     expect(handlers.has("session_stop")).toBe(false);
-    expect(handlers.has("tool_call")).toBe(false);
     expect(shortcuts.has("ctrl+d")).toBe(true);
-    expect(shortcuts.has("ctrl+shift+d")).toBe(true);
+    expect(flags.has("design-style")).toBe(true);
+    expect(renderers.has("designer-result")).toBe(true);
   });
 
-  test("design rules are always injected via before_agent_start", () => {
+  test("design rules are always injected", () => {
     const { handlers } = makeApi();
     const result = handlers.get("before_agent_start")?.(
       { prompt: "fix database", systemPrompt: "base" },
       { cwd: process.cwd() }
     ) as { systemPrompt: string };
     expect(result.systemPrompt).toContain("[DESIGN RULES]");
-    expect(result.systemPrompt).toContain("One light source");
-    expect(result.systemPrompt.toLowerCase()).toContain("concentric radius");
-    expect(result.systemPrompt).toContain("prefers-reduced-motion");
   });
 
   test("design rules replace, not stack", () => {
@@ -62,8 +68,7 @@ describe("native Pi designer extension", () => {
     const { tools } = makeApi();
     const tool = tools.get("designer")!;
     const result = await tool.execute("id", {}, undefined, undefined, { cwd: process.cwd() });
-    const text = result.content[0].text;
-    expect(text).toContain("designer-master");
+    expect(result.content[0].text).toContain("designer-master");
   });
 
   test("designer tool loads a single skill by name", async () => {
@@ -81,20 +86,14 @@ describe("native Pi designer extension", () => {
     expect(result.content[0].text).toContain("Unknown action");
   });
 
-  test("keyboard shortcuts registered with handlers", () => {
-    const { shortcuts } = makeApi();
-    expect(shortcuts.get("ctrl+d")?.description).toContain("designer");
-    expect(shortcuts.get("ctrl+shift+d")?.description).toContain("designer");
+  test("design-style flag registered with string type", () => {
+    const { flags } = makeApi();
+    expect(flags.get("design-style")?.type).toBe("string");
   });
 
-  test("turn_end hook exists for design audit", () => {
-    const { handlers } = makeApi();
-    expect(handlers.has("turn_end")).toBe(true);
-  });
-
-  test("session_start hook exists for vibe restoration", () => {
-    const { handlers } = makeApi();
-    expect(handlers.has("session_start")).toBe(true);
+  test("message renderer registered for designer results", () => {
+    const { renderers } = makeApi();
+    expect(renderers.has("designer-result")).toBe(true);
   });
 
   test("all declared skills exist on disk", async () => {

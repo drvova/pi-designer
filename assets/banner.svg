@@ -1,144 +1,152 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="480" viewBox="0 0 1280 480" fill="none">
   <defs>
-    <!-- Driftwood palette: warm amber + ocean teal + moss -->
-    <linearGradient id="bg" x1="0" y1="0" x2="0.8" y2="1">
-      <stop offset="0" stop-color="#0c0a08"/>
-      <stop offset="0.4" stop-color="#0f0d0a"/>
-      <stop offset="1" stop-color="#0a0a0c"/>
-    </linearGradient>
-
     <linearGradient id="amber" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#d4a574"/>
-      <stop offset="0.6" stop-color="#e0b585"/>
       <stop offset="1" stop-color="#c89860"/>
     </linearGradient>
-
-    <linearGradient id="markGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#d4a574"/>
-      <stop offset="0.5" stop-color="#4a7c7e"/>
-      <stop offset="1" stop-color="#5b6f3a"/>
+    <linearGradient id="ocean" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4a7c7e"/>
+      <stop offset="1" stop-color="#3a6264"/>
     </linearGradient>
-
-    <!-- Top glow — one light source from above -->
-    <radialGradient id="topGlow" cx="0.5" cy="0" r="0.6">
-      <stop offset="0" stop-color="#d4a574" stop-opacity="0.06"/>
-      <stop offset="0.5" stop-color="#d4a574" stop-opacity="0.02"/>
-      <stop offset="1" stop-color="#d4a574" stop-opacity="0"/>
-    </radialGradient>
-
-    <!-- Subtle dot texture -->
-    <pattern id="dots" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
-      <circle cx="8" cy="8" r="0.4" fill="#d4a574" fill-opacity="0.025"/>
+    <pattern id="dither" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="3" height="3" fill="#1a1814"/>
+      <rect x="3" y="3" width="3" height="3" fill="#1a1814"/>
+      <rect x="3" y="0" width="3" height="3" fill="#13110f"/>
+      <rect x="0" y="3" width="3" height="3" fill="#13110f"/>
     </pattern>
-
-    <!-- Concentric rings art piece (product-specific anchor) -->
-    <radialGradient id="ringGlow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#d4a574" stop-opacity="0.08"/>
-      <stop offset="1" stop-color="#d4a574" stop-opacity="0"/>
-    </radialGradient>
   </defs>
 
-  <!-- Background layers -->
-  <rect width="1280" height="480" fill="url(#bg)"/>
-  <rect width="1280" height="480" fill="url(#dots)"/>
-  <rect width="1280" height="480" fill="url(#topGlow)"/>
+  <!-- Background — warm dark, dithered -->
+  <rect width="1280" height="480" fill="#0c0a08"/>
+  <rect width="640" height="480" fill="url(#dither)" opacity="0.5"/>
 
-  <!-- Left accent line -->
-  <rect x="0" y="0" width="3" height="480" fill="url(#amber)" opacity="0.4"/>
+  <!-- Divider -->
+  <rect x="640" y="0" width="1" height="480" fill="#d4a574" fill-opacity="0.1"/>
 
-  <!-- ============ CONCENTRIC RING ART PIECE (right side, asymmetric anchor) ============ -->
-  <g transform="translate(960, 240)">
-    <circle cx="0" cy="0" r="180" fill="url(#ringGlow)"/>
-    <!-- Outer ring -->
-    <circle cx="0" cy="0" r="140" fill="none" stroke="#d4a574" stroke-opacity="0.08" stroke-width="1"/>
-    <circle cx="0" cy="0" r="110" fill="none" stroke="#4a7c7e" stroke-opacity="0.1" stroke-width="1"/>
-    <circle cx="0" cy="0" r="80" fill="none" stroke="#d4a574" stroke-opacity="0.12" stroke-width="1"/>
-    <circle cx="0" cy="0" r="50" fill="none" stroke="#5b6f3a" stroke-opacity="0.15" stroke-width="1"/>
-    <!-- Orbiting dots -->
-    <circle cx="0" cy="-140" r="3" fill="#d4a574"/>
-    <circle cx="110" cy="0" r="2.5" fill="#4a7c7e"/>
-    <circle cx="-80" cy="0" r="2" fill="#5b6f3a"/>
-    <circle cx="0" cy="50" r="3" fill="#d4a574" opacity="0.6"/>
-    <!-- Center mark -->
-    <rect x="-16" y="-16" width="32" height="32" rx="8" fill="url(#markGrad)" opacity="0.8"/>
-    <rect x="-10" y="-10" width="20" height="20" rx="5" fill="#0c0a08" opacity="0.4"/>
-    <!-- Label -->
-    <text x="0" y="175" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#3f3f46" letter-spacing="3">380 SKILLS ORBITING</text>
-  </g>
+  <!-- ============ LEFT: "BEFORE" — the generic AI default ============ -->
+  <g font-family="system-ui, sans-serif">
+    <text x="40" y="36" font-size="9" font-weight="700" fill="#52525b" letter-spacing="3">WITHOUT PI-DESIGNER</text>
 
-  <!-- ============ TITLE BLOCK (left-weighted, asymmetric 7/5) ============ -->
-  <g transform="translate(64, 0)">
+    <!-- Fake generic card grid -->
+    <g transform="translate(40, 60)">
+      <!-- Fake hero with gradient blob -->
+      <rect width="260" height="70" rx="8" fill="#1a1a2e"/>
+      <circle cx="200" cy="35" r="30" fill="#6366f1" fill-opacity="0.15"/>
+      <circle cx="180" cy="25" r="20" fill="#818cf8" fill-opacity="0.1"/>
+      <rect x="12" y="14" width="120" height="8" rx="2" fill="#818cf8" fill-opacity="0.3"/>
+      <rect x="12" y="28" width="80" height="5" rx="2" fill="#6366f1" fill-opacity="0.2"/>
+      <rect x="12" y="42" width="50" height="14" rx="3" fill="#6366f1" fill-opacity="0.25"/>
 
-    <!-- Brand mark + name -->
-    <g transform="translate(0, 60)">
-      <rect x="0" y="0" width="36" height="36" rx="8" fill="url(#markGrad)"/>
-      <rect x="6" y="6" width="24" height="24" rx="5" fill="#0c0a08" opacity="0.3"/>
-      <text x="48" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#71717a" letter-spacing="-0.5">pi-designer</text>
+      <!-- 3 equal cards -->
+      <rect x="0" y="82" width="82" height="60" rx="6" fill="#1a1a2e"/>
+      <rect x="89" y="82" width="82" height="60" rx="6" fill="#1a1a2e"/>
+      <rect x="178" y="82" width="82" height="60" rx="6" fill="#1a1a2e"/>
+      <rect x="8" y="90" width="40" height="5" rx="2" fill="#818cf8" fill-opacity="0.2"/>
+      <rect x="8" y="100" width="60" height="3" rx="1.5" fill="#52525b"/>
+      <rect x="8" y="107" width="50" height="3" rx="1.5" fill="#52525b"/>
+      <rect x="97" y="90" width="40" height="5" rx="2" fill="#818cf8" fill-opacity="0.2"/>
+      <rect x="97" y="100" width="60" height="3" rx="1.5" fill="#52525b"/>
+      <rect x="97" y="107" width="50" height="3" rx="1.5" fill="#52525b"/>
+      <rect x="186" y="90" width="40" height="5" rx="2" fill="#818cf8" fill-opacity="0.2"/>
+      <rect x="186" y="100" width="60" height="3" rx="1.5" fill="#52525b"/>
+      <rect x="186" y="107" width="50" height="3" rx="1.5" fill="#52525b"/>
     </g>
 
-    <!-- Headline — bold, 4x scale, tight leading -->
-    <text x="0" y="130" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="52" fill="#e4e4e7" letter-spacing="-2.5">
-      <tspan x="0" dy="0">Design that</tspan>
-      <tspan x="0" dy="52" fill="url(#amber)">refuses to be</tspan>
-      <tspan x="0" dy="52">generic.</tspan>
-    </text>
+    <!-- Red stamp -->
+    <g transform="translate(180, 220) rotate(-8)">
+      <rect x="0" y="0" width="140" height="26" rx="4" fill="none" stroke="#ef4444" stroke-opacity="0.3" stroke-width="1.5"/>
+      <text x="14" y="18" font-size="10" font-weight="700" fill="#ef4444" fill-opacity="0.4" letter-spacing="2">GENERIC. FORGETTABLE.</text>
+    </g>
 
-    <!-- Tagline -->
-    <text x="0" y="280" font-family="system-ui, sans-serif" font-size="15" fill="#71717a" font-weight="400">
-      <tspan x="0" dy="0">Always-on design rules force specificity. 380 deferred skills load</tspan>
-      <tspan x="0" dy="22">on demand. A visual deck presents options you actually choose.</tspan>
-    </text>
-
-    <!-- Install -->
-    <rect x="0" y="340" width="320" height="38" rx="8" fill="#14110d" stroke="#d4a574" stroke-opacity="0.1"/>
-    <text x="16" y="364" font-family="'JetBrains Mono', monospace" font-size="13" fill="#4a7c7e">$</text>
-    <text x="30" y="364" font-family="'JetBrains Mono', monospace" font-size="13" fill="#d4a574">pi install npm:pi-designer</text>
-
-    <!-- Badges -->
-    <g font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600">
-      <rect x="0" y="395" width="76" height="22" rx="4" fill="#d4a574" fill-opacity="0.08" stroke="#d4a574" stroke-opacity="0.15"/>
-      <text x="9" y="410" fill="#d4a574">NATIVE</text>
-
-      <rect x="84" y="395" width="62" height="22" rx="4" fill="#4a7c7e" fill-opacity="0.08" stroke="#4a7c7e" stroke-opacity="0.15"/>
-      <text x="93" y="410" fill="#4a7c7e">v6.0.0</text>
-
-      <rect x="154" y="395" width="86" height="22" rx="4" fill="#5b6f3a" fill-opacity="0.1" stroke="#5b6f3a" stroke-opacity="0.2"/>
-      <text x="163" y="410" fill="#5b6f3a">16 SLICES</text>
+    <!-- Problems list -->
+    <g transform="translate(40, 270)" font-size="10" fill="#52525b">
+      <text x="0" y="0">· Violet/cyan on near-black</text>
+      <text x="0" y="18">· Gradient blob "hero"</text>
+      <text x="0" y="36">· 3 equal cards, no hierarchy</text>
+      <text x="0" y="54">· Fits any product. Fits none.</text>
+      <text x="0" y="72">· No focus states, no reduced-motion</text>
     </g>
   </g>
 
-  <!-- ============ STAT STRIP (bottom, thin grid) ============ -->
-  <g transform="translate(0, 440)">
-    <rect width="1280" height="1" fill="#d4a574" fill-opacity="0.06"/>
-    <g font-family="'JetBrains Mono', monospace" font-size="10">
-      <!-- Stat 1 -->
-      <text x="64" y="20" fill="#d4a574" font-weight="700" font-size="14">380</text>
-      <text x="64" y="35" fill="#52525b" font-size="9">SKILLS</text>
-      <line x1="140" y1="8" x2="140" y2="38" stroke="#d4a574" stroke-opacity="0.06"/>
+  <!-- ============ RIGHT: "AFTER" — pi-designer guided ============ -->
+  <g font-family="system-ui, sans-serif">
+    <text x="680" y="36" font-size="9" font-weight="700" fill="#d4a574" letter-spacing="3">WITH PI-DESIGNER</text>
 
-      <!-- Stat 2 -->
-      <text x="160" y="20" fill="#4a7c7e" font-weight="700" font-size="14">13</text>
-      <text x="160" y="35" fill="#52525b" font-size="9">PI APIS</text>
-      <line x1="236" y1="8" x2="236" y2="38" stroke="#d4a574" stroke-opacity="0.06"/>
+    <!-- Bold asymmetric hero with product-specific anchor -->
+    <g transform="translate(680, 52)">
+      <!-- Asymmetric layout: text 7, visual 3 -->
+      <rect width="560" height="100" rx="10" fill="#14110d"/>
 
-      <!-- Stat 3 -->
-      <text x="256" y="20" fill="#5b6f3a" font-weight="700" font-size="14">6</text>
-      <text x="256" y="35" fill="#52525b" font-size="9">HOOKS</text>
-      <line x1="332" y1="8" x2="332" y2="38" stroke="#d4a574" stroke-opacity="0.06"/>
+      <!-- Left: bold headline -->
+      <text x="20" y="32" font-size="22" font-weight="800" fill="#e4e4e7" letter-spacing="-1">From bean to cup.</text>
+      <text x="20" y="52" font-size="10" fill="#71717a">Single-origin, roasted weekly.</text>
+      <rect x="20" y="64" width="80" height="22" rx="5" fill="#d4a574"/>
+      <text x="35" y="79" font-size="9" font-weight="600" fill="#0c0a08">SUBSCRIBE</text>
 
-      <!-- Stat 4 -->
-      <text x="352" y="20" fill="#d4a574" font-weight="700" font-size="14">~575</text>
-      <text x="352" y="35" fill="#52525b" font-size="9">TOKENS/TURN</text>
-      <line x1="452" y1="8" x2="452" y2="38" stroke="#d4a574" stroke-opacity="0.06"/>
-
-      <!-- Architecture -->
-      <text x="472" y="20" fill="#3f3f46">app</text>
-      <text x="500" y="20" fill="#4a7c7e">→</text>
-      <text x="514" y="20" fill="#3f3f46">features</text>
-      <text x="572" y="20" fill="#4a7c7e">→</text>
-      <text x="586" y="20" fill="#3f3f46">entities</text>
-      <text x="644" y="20" fill="#4a7c7e">+</text>
-      <text x="656" y="20" fill="#3f3f46">shared</text>
+      <!-- Right: miniature product interface (real component, not blob) -->
+      <rect x="340" y="12" width="200" height="76" rx="6" fill="#1c1813" stroke="#d4a574" stroke-opacity="0.1"/>
+      <text x="352" y="28" font-size="7" fill="#52525b" letter-spacing="1">THIS WEEK'S ROAST</text>
+      <text x="352" y="48" font-size="16" font-weight="700" fill="#d4a574" font-variant-numeric="tabular-nums">Ethiopia Yirgacheffe</text>
+      <text x="352" y="62" font-size="8" fill="#71717a">Medium · Floral · Citrus</text>
+      <rect x="352" y="70" width="40" height="3" rx="1.5" fill="#d4a574" fill-opacity="0.3"/>
+      <rect x="352" y="70" width="28" height="3" rx="1.5" fill="#d4a574"/>
+      <text x="400" y="73" font-size="7" fill="#52525b">68% sold</text>
     </g>
+
+    <!-- Green stamp -->
+    <g transform="translate(820, 220) rotate(-3)">
+      <rect x="0" y="0" width="180" height="26" rx="4" fill="none" stroke="#5b6f3a" stroke-opacity="0.5" stroke-width="1.5"/>
+      <text x="14" y="18" font-size="10" font-weight="700" fill="#5b6f3a" fill-opacity="0.6" letter-spacing="2">SPECIFIC. MEMORABLE. YOURS.</text>
+    </g>
+
+    <!-- Wins list -->
+    <g transform="translate(680, 270)" font-size="10" fill="#8a8278">
+      <text x="0" y="0" fill="#d4a574">· Warm amber palette derived from coffee</text>
+      <text x="0" y="18" fill="#d4a574">· Real product component as hero anchor</text>
+      <text x="0" y="36" fill="#d4a574">· Asymmetric 7/3 split, not centered</text>
+      <text x="0" y="54" fill="#d4a574">· Bold display type (22px, weight 800)</text>
+      <text x="0" y="72" fill="#d4a574">· Focus states, reduced-motion, tabular nums</text>
+    </g>
+  </g>
+
+  <!-- ============ BOTTOM BAR ============ -->
+  <g transform="translate(0, 370)">
+    <rect width="1280" height="1" fill="#d4a574" fill-opacity="0.08"/>
+    <rect width="1280" height="110" fill="#0a0908"/>
+
+    <!-- Brand + install -->
+    <g transform="translate(40, 20)" font-family="system-ui, sans-serif">
+      <rect x="0" y="0" width="28" height="28" rx="7" fill="url(#amber)"/>
+      <text x="36" y="20" font-size="18" font-weight="800" fill="#e4e4e7" letter-spacing="-0.5">pi<tspan fill="url(#amber)">-designer</tspan></text>
+
+      <rect x="36" y="34" width="250" height="28" rx="6" fill="#14110d" stroke="#d4a574" stroke-opacity="0.08"/>
+      <text x="48" y="52" font-family="'JetBrains Mono', monospace" font-size="11" fill="#4a7c7e">$</text>
+      <text x="60" y="52" font-family="'JetBrains Mono', monospace" font-size="11" fill="#d4a574">pi install npm:pi-designer</text>
+    </g>
+
+    <!-- Stats row -->
+    <g transform="translate(360, 30)" font-family="'JetBrains Mono', monospace">
+      <text x="0" y="12" font-size="16" font-weight="700" fill="#d4a574" font-variant-numeric="tabular-nums">380</text>
+      <text x="0" y="28" font-size="8" fill="#52525b" letter-spacing="1">SKILLS</text>
+
+      <text x="80" y="12" font-size="16" font-weight="700" fill="#4a7c7e" font-variant-numeric="tabular-nums">16</text>
+      <text x="80" y="28" font-size="8" fill="#52525b" letter-spacing="1">FEATURES</text>
+
+      <text x="160" y="12" font-size="16" font-weight="700" fill="#5b6f3a" font-variant-numeric="tabular-nums">13</text>
+      <text x="160" y="28" font-size="8" fill="#52525b" letter-spacing="1">PI APIS</text>
+
+      <text x="240" y="12" font-size="16" font-weight="700" fill="#d4a574" font-variant-numeric="tabular-nums">~575</text>
+      <text x="240" y="28" font-size="8" fill="#52525b" letter-spacing="1">TOK/TURN</text>
+    </g>
+
+    <!-- Arrow connecting before to after -->
+    <g transform="translate(600, 50)">
+      <path d="M 0 0 L 40 0 M 35 -5 L 40 0 L 35 5" stroke="#d4a574" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
+      <text x="48" y="4" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#d4a574">always-on rules</text>
+      <text x="48" y="20" font-family="system-ui, sans-serif" font-size="9" fill="#52525b">force specificity every turn</text>
+    </g>
+
+    <!-- GitHub link -->
+    <text x="1240" y="60" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="9" fill="#3f3f46">github.com/drvova/pi-designer</text>
   </g>
 </svg>

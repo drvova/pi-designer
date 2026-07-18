@@ -1,25 +1,39 @@
 export const DESIGN_RULES = `[DESIGN RULES]
 
-## Hard constraints (always apply)
+## Before writing code
 
-Shadows: One light source from the top. Every shadow in the interface must be consistent with that direction. Bigger elevation = larger, softer shadow.
-Radius: Nested rounded elements use concentric radius: outer = inner + padding. Never same radius on both.
-Spacing: Use a consistent scale (4, 8, 12, 16, 24, 32, 48, 64px). Gap between related items is smaller than gap between groups.
-Contrast: Body text 4.5:1 minimum. Large text and UI elements 3:1. Test with math, not by eye.
-Typography: Use text-wrap: balance on headings, pretty on paragraphs. Tabular numbers for data. Antialiased font smoothing.
-Interaction: Every interactive element needs hover, active, focus, and disabled states. Focus ring must be visible.
-Animation: Animate only transform and opacity (GPU-composited). Never width/height/top/left. Exits shorter than entrances. Respect prefers-reduced-motion.
-Color: Derive palette from the product's real world. Never use the AI default (violet/purple + cyan on near-black) unless explicitly requested.
-Layout: One focal point per view. Primary action gets the largest target. Related items cluster, unrelated items separate.
-Content: Do not invent metrics, testimonials, prices, or capabilities the user did not supply. Label demo data visibly.
+Answer these silently: What is this product's real material? Who uses it in what setting? What is the ONE thing a visitor should remember? If you cannot answer these from the user's prompt, the design will be generic. Ask the user before proceeding.
 
-## Reject these as defaults
+## Composition (most important)
 
-Gradient wallpaper heroes without product content. Decorative blurred blobs. Interchangeable equal-card grids. Glassmorphism as decoration. Motion libraries added only to fade sections. Hotlinked stock images. Dead links to #.
+NEVER produce a page where every section is a centered headline + 3 equal cards. That is the AI default and it fails every product.
+
+Instead, compose deliberately:
+- Hero must contain a product-specific element (real UI fragment, honest diagram, material texture, or strong typographic statement). A gradient, blurred blob, or abstract shape is NOT an anchor.
+- Vary section shapes: alternate dense data clusters with full-viewport pauses. Identical padding on every section reads as a template.
+- Use asymmetry on at least one section (7/5 split, offset media, staggered baselines). Centered everything is the default; break it with intent.
+- Display type must be at least 4x body size with tight leading. A 2.5rem headline is timid. Be bold.
+- One deliberate rule-break per page: an oversized number, a vertical label, an element crossing a boundary. One, not five.
+
+## Color and type
+
+Derive palette from the product's actual world, not from tech-brand trends.
+- A coffee roaster gets warm earthy tones (amber, brown, cream), not indigo gradients.
+- A marine research tool gets ocean colors (deep teal, slate, white), not violet glow.
+- A woodworking studio gets natural wood tones (oak, walnut, linen), not dark tech themes.
+Pick typefaces that fit the audience. Serif for editorial/trust, grotesque for utility, mono for technical. Two families max. Never system-ui alone for a brand page.
+
+## Hard technical rules
+
+Shadows: one light source from top. Concentric radius (outer = inner + padding). Spacing scale (4/8/12/16/24/32/48/64). Contrast 4.5:1 body. Transform/opacity only for animation. prefers-reduced-motion required. All four interaction states. Tabular numbers for data. text-wrap: balance on headings.
+
+## Reject as defaults (not style choices, failure patterns)
+
+Violet/purple + cyan on near-black. Gradient wallpaper heroes. Blurred decorative blobs. Equal-card grids with no hierarchy. Glassmorphism as decoration. Motion libraries only to fade sections. Interchangeable headlines. Hotlinked images. Dead links to #.
 
 ## When the task is design work
 
-Call the designer tool to load detailed skills (art direction, visual system, motion craft, 324+ style references). The rules above are always active; the skills are on demand.
+Call designer() to load 380 skills: art direction protocol, visual system contracts, motion engineering, and 324 named styles (cyberpunk, solarpunk, brutalist, wabi-sabi, etc.). Load a style that matches the product, not a random one.
 
 [/DESIGN RULES]`;
 

@@ -10,6 +10,7 @@ import { registerDesignerRenderer } from "../features/designer-renderer/index.ts
 import { registerDesignerSession } from "../features/designer-session/index.ts";
 import { registerDesignerShortcuts } from "../features/designer-shortcuts/index.ts";
 import { registerDesignerStatus } from "../features/designer-status/index.ts";
+import { registerDesignGate } from "../features/design-gate/index.ts";
 import { registerDesignRules } from "../features/design-rules/index.ts";
 import { registerDesignerTool } from "../features/designer-tool/index.ts";
 import { registerDesignValidator } from "../features/design-validator/index.ts";
@@ -28,6 +29,7 @@ export default function designerExtension(pi: ExtensionAPI): void {
   registerVibeCommand(pi);
   registerDoctorCommand(pi, { isEnabled, skills: DESIGNER_SKILLS });
   if (isEnabled(process.cwd())) {
+    registerDesignGate(pi, { isEnabled });
     registerDesignRules(pi, { isEnabled });
     registerDesignerTool(pi, { loadAllSkills, loadSkill, getSkillList: () => DESIGNER_SKILLS, getVibe });
     registerDeckTool(pi);

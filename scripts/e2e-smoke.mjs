@@ -45,7 +45,8 @@ check("rules injected", () => {
   const r = handlers.get("before_agent_start")({ prompt: "test", systemPrompt: "base" }, { cwd: process.cwd() });
   assert(r?.systemPrompt?.includes("[DESIGN RULES]"), "rules not injected");
 });
-check("no tool gates", () => assert(!handlers.has("session_stop") && !handlers.has("tool_call"), "unexpected gates"));
+check("design gate on tool_call", () => assert(handlers.has("tool_call"), "expected tool_call design gate"));
+check("no session_stop gate", () => assert(!handlers.has("session_stop"), "unexpected session_stop"));
 const report = { mode: "simulated", host: "pi", tests, skipped: [], failures, artifacts: reportPath ? [reportPath] : [] };
 if (reportPath) { mkdirSync(dirname(reportPath), { recursive: true }); writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`); }
 console.log(JSON.stringify(report, null, 2));

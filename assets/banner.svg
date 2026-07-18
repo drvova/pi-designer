@@ -1,80 +1,50 @@
-<svg width="1280" height="500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 500">
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Generic AI gradient blob -->
-    <radialGradient id="genericBlob" cx="50%" cy="50%">
-      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.6" />
-      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0.3" />
-    </radialGradient>
-    
-    <!-- Diagonal stripe pattern for stamp -->
-    <pattern id="stripes" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <rect width="4" height="8" fill="#d4a574"/>
-      <rect x="4" width="4" height="8" fill="transparent"/>
-    </pattern>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8F5EE"/>
+      <stop offset="100%" stop-color="#F2EDE2"/>
+    </linearGradient>
   </defs>
-  
-  <!-- BEFORE: Generic AI side -->
-  <rect width="640" height="500" fill="#18181b"/>
-  
-  <!-- Ugly gradient blob -->
-  <ellipse cx="320" cy="140" rx="180" ry="120" fill="url(#genericBlob)" opacity="0.9"/>
-  
-  <!-- Three identical boring cards -->
-  <rect x="120" y="260" width="120" height="140" fill="none" stroke="#71717a" stroke-width="1.5" rx="8"/>
-  <rect x="260" y="260" width="120" height="140" fill="none" stroke="#71717a" stroke-width="1.5" rx="8"/>
-  <rect x="400" y="260" width="120" height="140" fill="none" stroke="#71717a" stroke-width="1.5" rx="8"/>
-  
-  <!-- Generic "Inter" text sample -->
-  <text x="320" y="100" font-family="system-ui, -apple-system" font-size="13" fill="#a1a1aa" text-anchor="middle" letter-spacing="0">
-    Your Product Name Here
+
+  <!-- Paper background with subtle warmth -->
+  <rect width="1200" height="400" fill="url(#paper)"/>
+
+  <!-- Single thin rule, top — sets the baseline like a real document -->
+  <rect x="80" y="48" width="1040" height="1" fill="#D4A574" opacity="0.3"/>
+
+  <!-- Eyebrow: quiet, tracked, like a magazine masthead -->
+  <text x="80" y="40" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="4">NATIVE PI EXTENSION</text>
+  <text x="1120" y="40" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="4">V6.0.0</text>
+
+  <!-- THE DESIGN: one word, enormous, bleeding past the right edge -->
+  <!-- "pi-designer" but broken so "designer" carries the weight -->
+  <text x="76" y="210" font-family="Georgia, 'Times New Roman', serif" font-size="128" font-weight="400" fill="#1A1714" letter-spacing="-6">
+    pi<tspan font-style="italic" fill="#C89060">-</tspan>designer
   </text>
-  
-  <!-- Label -->
-  <text x="320" y="460" font-family="system-ui, -apple-system" font-size="11" fill="#52525b" text-anchor="middle" font-weight="500" letter-spacing="1">
-    ALGORITHMIC AVERAGE
+
+  <!-- The "designer" word extends past the frame — deliberate bleed -->
+  <!-- (the text naturally extends; the frame clips it visually) -->
+
+  <!-- Subtitle: tight beneath, serif italic, like editorial dek -->
+  <text x="80" y="252" font-family="Georgia, serif" font-size="18" font-style="italic" fill="#6B6358">
+    380 design skills. Rules that refuse defaults. Zero context bloat until called.
   </text>
-  
-  <!-- AFTER: Designed side -->
-  <rect x="640" width="640" height="500" fill="#f5f2ec"/>
-  
-  <!-- Bold typographic statement -->
-  <text x="960" y="160" font-family="serif" font-size="84" fill="#d4a574" text-anchor="middle" font-weight="900" letter-spacing="-3">
-    PI
+
+  <!-- One visual element: a vertical amber bar that interrupts the text baseline -->
+  <!-- This is the "rule-break" — a single mark that shows intention -->
+  <rect x="64" y="120" width="3" height="120" fill="#D4A574"/>
+
+  <!-- Install: monospace, small, treated as a caption not a CTA -->
+  <text x="80" y="300" font-family="'Courier New', monospace" font-size="13" fill="#6B6358">
+    $ pi install npm:pi-designer
   </text>
-  <text x="960" y="240" font-family="serif" font-size="84" fill="#1c1917" text-anchor="middle" font-weight="900" letter-spacing="-3">
-    DESIGNER
+
+  <!-- Bottom: a single line of metadata, quiet -->
+  <rect x="80" y="360" width="1040" height="1" fill="#D4A574" opacity="0.2"/>
+  <text x="80" y="382" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="2">
+    380 SKILLS · 16 FEATURES · 13 PI APIS · ~575 TOKENS PER TURN
   </text>
-  
-  <!-- Striking visual element: heavy rule -->
-  <rect x="760" y="280" width="400" height="8" fill="#d4a574"/>
-  <rect x="760" y="292" width="400" height="2" fill="#1c1917"/>
-  
-  <!-- Manifesto statement -->
-  <text x="960" y="340" font-family="monospace" font-size="14" fill="#1c1917" text-anchor="middle" letter-spacing="0.5">
-    LOAD A STYLE
+  <text x="1120" y="382" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A09585" letter-spacing="2">
+    GITHUB.COM/DRVOVA/PI-DESIGNER
   </text>
-  <text x="960" y="365" font-family="monospace" font-size="14" fill="#1c1917" text-anchor="middle" letter-spacing="0.5">
-    BUILD WITH INTENT
-  </text>
-  <text x="960" y="390" font-family="monospace" font-size="14" fill="#1c1917" text-anchor="middle" letter-spacing="0.5">
-    REJECT THE TEMPLATE
-  </text>
-  
-  <!-- Hard vertical split line -->
-  <rect x="638" y="0" width="4" height="500" fill="#1c1917"/>
-  
-  <!-- REFUSES DEFAULTS stamp crossing boundary -->
-  <g transform="translate(640, 250) rotate(-8)">
-    <!-- Stamp background with pattern -->
-    <rect x="-200" y="-45" width="400" height="90" fill="url(#stripes)" opacity="0.15"/>
-    <rect x="-200" y="-45" width="400" height="90" fill="none" stroke="#d4a574" stroke-width="6"/>
-    
-    <!-- Stamp text -->
-    <text x="0" y="12" font-family="monospace" font-size="36" fill="#d4a574" text-anchor="middle" font-weight="900" letter-spacing="2">
-      REFUSES
-    </text>
-    <text x="0" y="45" font-family="monospace" font-size="28" fill="#d4a574" text-anchor="middle" font-weight="900" letter-spacing="4">
-      DEFAULTS
-    </text>
-  </g>
 </svg>

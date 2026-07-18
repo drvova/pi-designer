@@ -1,39 +1,50 @@
 export const DESIGN_RULES = `[DESIGN RULES]
 
-## Before writing code
+## Think before you code
 
-Answer these silently: What is this product's real material? Who uses it in what setting? What is the ONE thing a visitor should remember? If you cannot answer these from the user's prompt, the design will be generic. Ask the user before proceeding.
+What is this product made of? Wood, data, sound, fabric, code, food? The answer IS the design direction. A coffee roaster is amber and brown. A marine tool is deep teal. A woodworking studio is oak and walnut. If you cannot name the material in one word, you have no art direction — ask the user.
 
-## Composition (most important)
+## Composition is the product
 
-NEVER produce a page where every section is a centered headline + 3 equal cards. That is the AI default and it fails every product.
+A page is not sections. It is a reading path the eye follows. Design that path:
+- The eye lands on the largest element first. Make that the product's real interface, data, or material — not a headline floating in space. Show the thing.
+- Contrast dominates: one section dense with real data, the next almost empty. A breathing page feels designed. A uniform-density page feels templated.
+- Break the grid: let one element cross a boundary, bleed to an edge, or take unexpected scale. This is the page's signature. One move. Not five.
+- Display type earns its size: 4x body minimum, tight leading, negative tracking at large sizes. A 2.5rem headline is a confession of timidity.
 
-Instead, compose deliberately:
-- Hero must contain a product-specific element (real UI fragment, honest diagram, material texture, or strong typographic statement). A gradient, blurred blob, or abstract shape is NOT an anchor.
-- Vary section shapes: alternate dense data clusters with full-viewport pauses. Identical padding on every section reads as a template.
-- Use asymmetry on at least one section (7/5 split, offset media, staggered baselines). Centered everything is the default; break it with intent.
-- Display type must be at least 4x body size with tight leading. A 2.5rem headline is timid. Be bold.
-- One deliberate rule-break per page: an oversized number, a vertical label, an element crossing a boundary. One, not five.
+## Color comes from the world
 
-## Color and type
+Do not pick a color from a palette generator. Derive it from the product's setting:
+- A bakery: flour white, crust brown, egg yolk yellow, oven warmth.
+- A data platform: terminal green, oscilloscope amber, or blueprint blue — pick the metaphor.
+- A fitness app: sweat, energy, muscle — not generic "health green."
+If the product is abstract, ground it in the user's physical context (office light, workshop, night drive, morning routine).
 
-Derive palette from the product's actual world, not from tech-brand trends.
-- A coffee roaster gets warm earthy tones (amber, brown, cream), not indigo gradients.
-- A marine research tool gets ocean colors (deep teal, slate, white), not violet glow.
-- A woodworking studio gets natural wood tones (oak, walnut, linen), not dark tech themes.
-Pick typefaces that fit the audience. Serif for editorial/trust, grotesque for utility, mono for technical. Two families max. Never system-ui alone for a brand page.
+## Typography is voice
 
-## Hard technical rules
+Two typefaces. One speaks, one works.
+- The display face has personality: a serif for trust and craft, a grotesque for utility, a mono for precision.
+- The body face is invisible: optimized for 14-16px screen rendering.
+- System-ui alone is a non-choice. It says "we had no opinion."
 
-Shadows: one light source from top. Concentric radius (outer = inner + padding). Spacing scale (4/8/12/16/24/32/48/64). Contrast 4.5:1 body. Transform/opacity only for animation. prefers-reduced-motion required. All four interaction states. Tabular numbers for data. text-wrap: balance on headings.
+## Engineering constraints (non-negotiable)
 
-## Reject as defaults (not style choices, failure patterns)
+Shadows: one light source from the top. Concentric radius (outer = inner + padding). Spacing scale (4/8/12/16/24/32/48/64px). Contrast 4.5:1 minimum for body text. Transform and opacity only for animation — never width, height, top, or left. prefers-reduced-motion required on every animated element. All four interaction states (hover, active, focus-visible, disabled). Tabular numbers for data. text-wrap: balance on headings, pretty on paragraphs. Antialiased rendering.
 
-Violet/purple + cyan on near-black. Gradient wallpaper heroes. Blurred decorative blobs. Equal-card grids with no hierarchy. Glassmorphism as decoration. Motion libraries only to fade sections. Interchangeable headlines. Hotlinked images. Dead links to #.
+## Statistical defaults are failures
+
+These patterns mean the design has no product-specific thought. They are not style choices — they are the absence of a decision:
+- Violet/purple + cyan on near-black for anything tech.
+- Gradient wallpaper heroes with no product content.
+- Blurred decorative blobs standing in for real imagery.
+- Three equal cards in a row with identical headings.
+- Glassmorphism as decoration. Bento grids as decoration.
+- A motion library installed only to fade sections in.
+- Headlines that could describe any product.
 
 ## When the task is design work
 
-Call designer() to load 380 skills: art direction protocol, visual system contracts, motion engineering, and 324 named styles (cyberpunk, solarpunk, brutalist, wabi-sabi, etc.). Load a style that matches the product, not a random one.
+Call designer() to load skills: composition protocol, visual system contracts, motion engineering, and 324 named styles. Load a style that matches the product's world. The rules above are always active; the skills give you depth on demand.
 
 [/DESIGN RULES]`;
 

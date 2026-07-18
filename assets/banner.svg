@@ -1,111 +1,126 @@
 <svg width="1280" height="480" viewBox="0 0 1280 480" xmlns="http://www.w3.org/2000/svg">
-  <!-- Cream background — not dark like every other dev tool -->
-  <rect width="1280" height="480" fill="#f5f2ec"/>
-
-  <!-- Heavy outer frame — brutalist -->
-  <rect x="0" y="0" width="1280" height="480" fill="none" stroke="#0a0a0a" stroke-width="4"/>
-
-  <!-- Oversized 380 bleeding off the right edge — deliberate rule-break -->
-  <text x="880" y="420" font-family="Georgia, 'Times New Roman', serif" font-size="320" font-weight="700" fill="#d4a574" fill-opacity="0.12" letter-spacing="-12">380</text>
-
-  <!-- ============ LEFT: headline + install (asymmetric, left-heavy) ============ -->
-
-  <!-- Eyebrow label -->
-  <text x="56" y="52" font-family="'JetBrains Mono', 'Courier New', monospace" font-size="10" font-weight="600" fill="#0a0a0a" letter-spacing="4">
-    A NATIVE PI EXTENSION — V6.0.0
-  </text>
-
-  <!-- Display headline — Georgia bold, 56px, left-aligned, NOT centered -->
-  <text x="52" y="112" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="700" fill="#0a0a0a" letter-spacing="-2.5">
-    Design that refuses
-  </text>
-  <text x="52" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="700" letter-spacing="-2.5">
-    <tspan fill="#d4a574">defaults.</tspan>
-  </text>
-
-  <!-- Quiet subhead -->
-  <text x="56" y="200" font-family="'JetBrains Mono', monospace" font-size="13" fill="#525252" letter-spacing="0.5">
-    380 skills on demand. Rules that can't be skipped. Zero context bloat.
-  </text>
-
-  <!-- Terminal block — heavy bordered, monospace -->
-  <rect x="48" y="232" width="440" height="44" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="3"/>
-  <text x="64" y="260" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="500" fill="#d4a574">
-    $ pi install npm:pi-designer
-  </text>
-
-  <!-- Stats — bold numbers in a row, no boxes around middle ones -->
-  <g transform="translate(48, 320)" font-family="Georgia, serif">
-    <!-- 380 -->
-    <text x="0" y="32" font-size="44" font-weight="700" fill="#d4a574" font-variant-numeric="tabular-nums">380</text>
-    <text x="0" y="56" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="600" fill="#525252" letter-spacing="2">SKILLS</text>
-
-    <line x1="130" y1="8" x2="130" y2="56" stroke="#0a0a0a" stroke-opacity="0.1" stroke-width="2"/>
-
-    <!-- 16 -->
-    <text x="150" y="32" font-size="44" font-weight="700" fill="#0a0a0a" font-variant-numeric="tabular-nums">16</text>
-    <text x="150" y="56" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="600" fill="#525252" letter-spacing="2">FEATURES</text>
-
-    <line x1="260" y1="8" x2="260" y2="56" stroke="#0a0a0a" stroke-opacity="0.1" stroke-width="2"/>
-
-    <!-- 13 -->
-    <text x="280" y="32" font-size="44" font-weight="700" fill="#0a0a0a" font-variant-numeric="tabular-nums">13</text>
-    <text x="280" y="56" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="600" fill="#525252" letter-spacing="2">PI APIS</text>
+  <!-- Background: workshop paper cream -->
+  <rect width="1280" height="480" fill="#F5F1E8"/>
+  
+  <!-- Grid structure (visible, subtle) -->
+  <line x1="64" y1="0" x2="64" y2="480" stroke="#D4CFC3" stroke-width="1"/>
+  <line x1="320" y1="0" x2="320" y2="480" stroke="#D4CFC3" stroke-width="1"/>
+  <line x1="640" y1="0" x2="640" y2="480" stroke="#D4CFC3" stroke-width="1"/>
+  <line x1="960" y1="0" x2="960" y2="480" stroke="#D4CFC3" stroke-width="1"/>
+  <line x1="0" y1="120" x2="1280" y2="120" stroke="#D4CFC3" stroke-width="1"/>
+  <line x1="0" y1="240" x2="1280" y2="240" stroke="#D4CFC3" stroke-width="1"/>
+  <line x1="0" y1="360" x2="1280" y2="360" stroke="#D4CFC3" stroke-width="1"/>
+  
+  <!-- Heavy graphite border (breaks at the bleed point) -->
+  <rect x="0" y="0" width="1280" height="480" fill="none" stroke="#2A2825" stroke-width="8"/>
+  
+  <!-- The bold element: massive "REFUSES" that bleeds off the edge -->
+  <g transform="translate(1100, 180) rotate(90)">
+    <text 
+      x="0" 
+      y="0" 
+      font-family="Arial Black, Helvetica, sans-serif" 
+      font-size="160" 
+      font-weight="900" 
+      fill="#2A2825"
+      letter-spacing="-6"
+      text-anchor="start">REFUSES</text>
   </g>
-
-  <!-- ============ RIGHT: "what we reject" grid — the anchor ============ -->
-  <!-- This IS the product: showing specific defaults it kills -->
-
-  <g transform="translate(700, 52)">
-    <!-- Grid frame -->
-    <rect x="0" y="0" width="520" height="280" fill="none" stroke="#0a0a0a" stroke-width="3"/>
-
-    <!-- Cross divisions — 2x2 grid -->
-    <line x1="260" y1="0" x2="260" y2="280" stroke="#0a0a0a" stroke-width="3"/>
-    <line x1="0" y1="140" x2="520" y2="140" stroke="#0a0a0a" stroke-width="3"/>
-
-    <!-- Top-left: filled amber block -->
-    <rect x="3" y="3" width="254" height="134" fill="#d4a574"/>
-    <text x="130" y="70" text-anchor="middle" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#0a0a0a">NO</text>
-    <text x="130" y="100" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#0a0a0a" letter-spacing="2">VIOLET ON BLACK</text>
-    <text x="130" y="118" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#0a0a0a" letter-spacing="2">"AI DEFAULT"</text>
-
-    <!-- Top-right: white block -->
-    <rect x="263" y="3" width="254" height="134" fill="#f5f2ec"/>
-    <text x="390" y="70" text-anchor="middle" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#0a0a0a">NO</text>
-    <text x="390" y="100" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#525252" letter-spacing="2">GRADIENT WALLPAPER</text>
-    <text x="390" y="118" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#525252" letter-spacing="2">HERO SECTIONS</text>
-
-    <!-- Bottom-left: white block -->
-    <rect x="3" y="143" width="254" height="134" fill="#f5f2ec"/>
-    <text x="130" y="210" text-anchor="middle" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#0a0a0a">NO</text>
-    <text x="130" y="240" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#525252" letter-spacing="2">EQUAL CARD GRIDS</text>
-    <text x="130" y="258" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#525252" letter-spacing="2">WITH NO HIERARCHY</text>
-
-    <!-- Bottom-right: black block -->
-    <rect x="263" y="143" width="254" height="134" fill="#0a0a0a"/>
-    <text x="390" y="210" text-anchor="middle" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#d4a574">NO</text>
-    <text x="390" y="240" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#d4a574" letter-spacing="2">BLURRED DECORATIVE</text>
-    <text x="390" y="258" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#d4a574" letter-spacing="2">BLOBS</text>
-  </g>
-
-  <!-- Grid label -->
-  <text x="700" y="360" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" fill="#525252" letter-spacing="3">
-    THESE ARE FAILURE PATTERNS, NOT STYLE CHOICES
-  </text>
-
-  <!-- ============ FOOTER ============ -->
-  <line x1="48" y1="420" x2="1232" y2="420" stroke="#0a0a0a" stroke-opacity="0.08" stroke-width="2"/>
-
-  <text x="56" y="452" font-family="'JetBrains Mono', monospace" font-size="10" fill="#525252">
-    app -> features -> entities + shared  ·  6 hooks  ·  ~575 tokens/turn  ·  MIT
-  </text>
-
-  <text x="1232" y="452" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" fill="#0a0a0a">
-    github.com/drvova/pi-designer
-  </text>
-
-  <!-- Corner mark — brutalist -->
-  <rect x="1228" y="16" width="36" height="36" fill="#0a0a0a"/>
-  <rect x="1232" y="20" width="28" height="28" fill="#d4a574"/>
+  
+  <!-- Primary heading: asymmetric top-left -->
+  <text 
+    x="64" 
+    y="100" 
+    font-family="Arial, Helvetica, sans-serif" 
+    font-size="72" 
+    font-weight="900" 
+    fill="#2A2825"
+    letter-spacing="-2">PI-DESIGNER</text>
+  
+  <!-- Subheading: tight to primary -->
+  <text 
+    x="64" 
+    y="140" 
+    font-family="Arial, Helvetica, sans-serif" 
+    font-size="24" 
+    font-weight="400" 
+    fill="#5A5650"
+    letter-spacing="1">EXTENSION FOR PI</text>
+  
+  <!-- Blueprint accent bar -->
+  <rect x="64" y="160" width="480" height="4" fill="#2B5F75"/>
+  
+  <!-- Manifesto body: functional, left-aligned -->
+  <text 
+    x="64" 
+    y="220" 
+    font-family="Arial, Helvetica, sans-serif" 
+    font-size="32" 
+    font-weight="700" 
+    fill="#2A2825"
+    letter-spacing="-1">DESIGN THAT</text>
+  
+  <text 
+    x="64" 
+    y="260" 
+    font-family="Arial, Helvetica, sans-serif" 
+    font-size="32" 
+    font-weight="700" 
+    fill="#2A2825"
+    letter-spacing="-1">DEFAULTS</text>
+  
+  <!-- Geometric element: workshop square -->
+  <rect x="64" y="300" width="120" height="120" fill="none" stroke="#2A2825" stroke-width="3"/>
+  <rect x="72" y="308" width="104" height="104" fill="none" stroke="#2B5F75" stroke-width="1"/>
+  
+  <!-- Small caps descriptor -->
+  <text 
+    x="210" 
+    y="340" 
+    font-family="Arial, Helvetica, sans-serif" 
+    font-size="16" 
+    font-weight="700" 
+    fill="#5A5650"
+    letter-spacing="3"
+    text-transform="uppercase">PREVENTS GENERIC</text>
+  
+  <text 
+    x="210" 
+    y="365" 
+    font-family="Arial, Helvetica, sans-serif" 
+    font-size="16" 
+    font-weight="700" 
+    fill="#5A5650"
+    letter-spacing="3"
+    text-transform="uppercase">AI AESTHETICS</text>
+  
+  <text 
+    x="210" 
+    y="390" 
+    font-family="Arial, Helvetica, sans-serif" 
+    font-size="16" 
+    font-weight="700" 
+    fill="#5A5650"
+    letter-spacing="3"
+    text-transform="uppercase">FORCES MATERIAL</text>
+  
+  <text 
+    x="210" 
+    y="415" 
+    font-family="Arial, Helvetica, sans-serif" 
+    font-size="16" 
+    font-weight="700" 
+    fill="#5A5650"
+    letter-spacing="3"
+    text-transform="uppercase">THINKING</text>
+  
+  <!-- Footer mark: Swiss brutalist credits -->
+  <text 
+    x="64" 
+    y="460" 
+    font-family="monospace" 
+    font-size="12" 
+    font-weight="400" 
+    fill="#8A857D"
+    letter-spacing="0">DESIGNED WITH INTENTION / NOT ASSEMBLED FROM TEMPLATES</text>
 </svg>

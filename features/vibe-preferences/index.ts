@@ -24,6 +24,18 @@ function writeVibes(vibes: Vibes): void {
 
 export function getVibe(cwd: string): string | undefined { return readVibes()[cwd]?.slice(0, 1200); }
 
+export function setVibe(cwd: string, vibe: string): void {
+  const vibes = readVibes();
+  vibes[cwd] = vibe;
+  writeVibes(vibes);
+}
+
+export function clearVibe(cwd: string): void {
+  const vibes = readVibes();
+  delete vibes[cwd];
+  writeVibes(vibes);
+}
+
 export function registerVibeCommand(pi: ExtensionAPI): void {
   pi.registerCommand("designer-vibe", {
     description: "Set persistent design preferences for this project",

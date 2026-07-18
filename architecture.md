@@ -11,21 +11,36 @@ app/pi-extension.ts                     composition root
 entities/designer-skill/                  skill entity model
 features/
   mode-activation/                      /designer + PI_DESIGNER_MODE + state
-  designer-prompt/                       before_agent_start prompt composition
-  designer-resources/                    resources_discover skill exposure
-  vibe-preferences/                      /designer-vibe + persistent preferences
+  design-rules/                         before_agent_start — always-on design rules
+  designer-tool/                        designer() tool — deferred skill loading
+  designer-deck/                        design_deck() tool — visual presentation server
+  designer-resources/                   skill catalog (380 skills)
+  vibe-preferences/                     /designer-vibe + persistent preferences
   designer-doctor/                      /designer-doctor health report
+  designer-status/                      setWidget + setStatus — live status panel
+  designer-shortcuts/                   registerShortcut — Ctrl+D / Ctrl+Shift+D
+  designer-session/                     session_start — vibe restore via appendEntry
+  design-audit/                         turn_end — post-turn AI-slop check
   plan-validation/                      pure plan checks
 shared/
-  designer-prompt.ts                     prompt text
+  design-rules.ts                       compact design rules text (~1.9KB)
   package-paths.ts                       package resource paths
-skills/                                  package resources loaded by Pi
+skills/                                  380 design skill files
 ```
 
-The root is the only module that receives and wires `ExtensionAPI`. Features
-own one user-facing concern and depend downward on pure shared logic or the
-Pi SDK. They do not import a host adapter, shell out to a CLI, or register
-unsupported lifecycle events.
+## Two-layer architecture
+
+```text
+Layer 1: ALWAYS ON
+  before_agent_start → injects DESIGN_RULES (~1.9KB, ~475 tokens)
+  session_start → restores vibe from session entries
+  turn_end → checks modified UI files for AI-default patterns
+  agent_end → updates status widget and footer
+
+Layer 2: DEFERRED (zero context cost until called)
+  designer() tool → loads any of 380 skills on demand
+  design_deck() tool → opens visual presentation server
+```
 
 ## Dependency direction
 
@@ -36,32 +51,30 @@ app -> features -> entities
 ```
 
 `app` is the composition layer. `features` own user-facing behavior and accept
-dependencies from the composition root when they need another feature's data.
-`entities` contain only domain models. `shared` contains reusable infrastructure
-and pure prompt/path primitives; it never imports upward. The release check scans
-these boundaries so a feature cannot quietly become another composition root.
+dependencies from the composition root. `entities` contain only domain models.
+`shared` contains reusable infrastructure and pure primitives. The release check
+scans these boundaries so a feature cannot quietly become another composition root.
 
 ## Runtime flow
 
 ```text
 Pi loads package
   -> app/pi-extension.ts composes feature registrations
-  -> /designer toggles the current cwd
-  -> resources_discover exposes skills
-  -> before_agent_start injects one normalized prompt when enabled
-  -> Pi continues its normal agent lifecycle
+  -> session_start restores vibe, sets status widget
+  -> before_agent_start injects design rules every turn
+  -> designer() loads skills on model demand (380 available)
+  -> design_deck() opens visual presentation when needed
+  -> turn_end audits UI files for AI-default patterns
+  -> Ctrl+D toggles mode, Ctrl+Shift+D loads skills
+  -> PI_DESIGNER_MODE=0 disables everything
 ```
-
-Prompt injection uses Pi's documented `BeforeAgentStartEvent.systemPrompt`
-string and returns `BeforeAgentStartEventResult.systemPrompt`. Resource
-activation returns `undefined` when disabled and `{ skillPaths }` when enabled.
 
 ## State and provider boundary
 
 State is per working directory and persisted beneath Pi's configured agent
 folder. The extension uses no provider-specific API, MCP mutation, or tool
-interception. User-controlled MCP configuration stays
-owned by Pi and the user.
+interception. User-controlled MCP configuration stays owned by Pi and the user.
+
 ## Verification
 
 Run `npm test` and `npm run check:release`. The extension tests use the real

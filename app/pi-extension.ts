@@ -1,11 +1,15 @@
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import { registerDesignAudit } from "../features/design-audit/index.ts";
 import { registerDeckTool } from "../features/designer-deck/index.ts";
 import { registerDoctorCommand } from "../features/designer-doctor/index.ts";
 import { DESIGNER_SKILLS, loadAllSkills, loadSkill } from "../features/designer-resources/index.ts";
+import { registerDesignerSession } from "../features/designer-session/index.ts";
+import { registerDesignerShortcuts } from "../features/designer-shortcuts/index.ts";
+import { registerDesignerStatus } from "../features/designer-status/index.ts";
 import { registerDesignRules } from "../features/design-rules/index.ts";
 import { registerDesignerTool } from "../features/designer-tool/index.ts";
 import { isEnabled, toggle } from "../features/mode-activation/index.ts";
-import { getVibe, registerVibeCommand } from "../features/vibe-preferences/index.ts";
+import { clearVibe, getVibe, registerVibeCommand, setVibe } from "../features/vibe-preferences/index.ts";
 
 export default function designerExtension(pi: ExtensionAPI): void {
   pi.registerCommand("designer", {
@@ -22,5 +26,9 @@ export default function designerExtension(pi: ExtensionAPI): void {
     registerDesignRules(pi, { isEnabled });
     registerDesignerTool(pi, { loadAllSkills, loadSkill, getSkillList: () => DESIGNER_SKILLS, getVibe });
     registerDeckTool(pi);
+    registerDesignerShortcuts(pi, { toggle, loadAllSkills });
+    registerDesignerSession(pi, { isEnabled, getVibe, setVibe, clearVibe });
+    registerDesignerStatus(pi, { isEnabled, getVibe, skillCount: DESIGNER_SKILLS.length });
+    registerDesignAudit(pi, { isEnabled });
   }
 }

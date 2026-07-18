@@ -14,7 +14,7 @@ const checks = [
   ["no secondary host manifest", !pkg.omp],
   ["native install docs", /pi install npm:pi-designer/.test(readme) && /pi install npm:pi-designer/.test(agents)],
   ["activation contract", /PI_DESIGNER_MODE/.test(agents) && /always available/.test(readme)],
-  ["feature slices documented", /app\/pi-extension\.ts[\s\S]*entities\/designer-skill[\s\S]*features\/[\s\S]*mode-activation[\s\S]*designer-prompt[\s\S]*designer-resources/.test(architecture)],
+  ["feature slices documented", /app\/pi-extension\.ts[\s\S]*entities\/designer-skill[\s\S]*mode-activation[\s\S]*design-rules[\s\S]*designer-tool[\s\S]*design-audit/.test(architecture)],
   ["native API documented", /ExtensionAPI/.test(api) && /before_agent_start/.test(api)],
   ["unsupported hooks rejected", /does not register `session_stop`/.test(api)],
   ["no removed host claims", !/oh-my-pi|\.omp\//i.test(`${readme}\n${agents}\n${architecture}\n${api}`)],

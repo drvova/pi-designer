@@ -14,27 +14,31 @@ if (!process.versions.bun) {
 }
 process.env.PI_DESIGNER_MODE = "1";
 const extension = await import("../app/pi-extension.ts");
-const commands = [];
-const tools = [];
+const commands = [], tools = [], shortcuts = [];
 const handlers = new Map();
 const api = {
   registerCommand(name, options) { commands.push({ name, options }); },
   on(name, handler) { handlers.set(name, handler); },
   registerTool(tool) { tools.push(tool.name); },
+  registerShortcut(key, options) { shortcuts.push(key); },
+  appendEntry() {},
 };
 extension.default(api);
-const tests = [];
-const failures = [];
+const tests = [], failures = [];
 const check = (name, fn) => { try { fn(); tests.push(name); } catch (error) { failures.push({ name, reason: error instanceof Error ? error.message : String(error) }); } };
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
 check("native commands", () => assert(JSON.stringify(commands.map(({ name }) => name)) === JSON.stringify(["designer", "designer-vibe", "designer-doctor"]), "unexpected commands"));
-check("deferred tools registered", () => assert(JSON.stringify(tools) === JSON.stringify(["designer", "design_deck"]), "expected designer + design_deck"));
-check("design rules always-on hook", () => assert(handlers.has("before_agent_start"), "expected before_agent_start for design rules"));
-check("rules injected on every prompt", () => {
-  const result = handlers.get("before_agent_start")({ prompt: "fix my database query", systemPrompt: "base" }, { cwd: process.cwd() });
+check("deferred tools", () => assert(JSON.stringify(tools) === JSON.stringify(["designer", "design_deck"]), "expected designer + design_deck"));
+check("design rules hook", () => assert(handlers.has("before_agent_start"), "missing before_agent_start"));
+check("session_start hook", () => assert(handlers.has("session_start"), "missing session_start for vibe restore"));
+check("turn_end audit hook", () => assert(handlers.has("turn_end"), "missing turn_end for design audit"));
+check("agent_end status hook", () => assert(handlers.has("agent_end"), "missing agent_end for status update"));
+check("keyboard shortcuts", () => assert(shortcuts.includes("ctrl+d") && shortcuts.includes("ctrl+shift+d"), "expected ctrl+d and ctrl+shift+d"));
+check("rules injected", () => {
+  const result = handlers.get("before_agent_start")({ prompt: "test", systemPrompt: "base" }, { cwd: process.cwd() });
   assert(result?.systemPrompt?.includes("[DESIGN RULES]"), "design rules not injected");
 });
-check("no session_stop or tool gates", () => assert(!handlers.has("session_stop") && !handlers.has("tool_call"), "unexpected gates"));
+check("no tool gates", () => assert(!handlers.has("session_stop") && !handlers.has("tool_call"), "unexpected gates"));
 const report = { mode: "simulated", host: "pi", tests, skipped: [], failures, artifacts: reportPath ? [reportPath] : [] };
 if (reportPath) { mkdirSync(dirname(reportPath), { recursive: true }); writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`); }
 console.log(JSON.stringify(report, null, 2));

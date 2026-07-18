@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0a0c"/>
+      <stop offset="0.5" stop-color="#0f0e0c"/>
+      <stop offset="1" stop-color="#0a0a0c"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d4a574"/>
+      <stop offset="0.5" stop-color="#e0b585"/>
+      <stop offset="1" stop-color="#c89860"/>
+    </linearGradient>
+    <linearGradient id="markGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d4a574"/>
+      <stop offset="1" stop-color="#4a7c7e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.3" r="0.5">
+      <stop offset="0" stop-color="#d4a574" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#d4a574" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="0.5" fill="#ffffff" fill-opacity="0.03"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="420" fill="url(#bg)"/>
+  <rect width="1280" height="420" fill="url(#dots)"/>
+  <rect width="1280" height="420" fill="url(#glow)"/>
+
+  <!-- Left accent bar -->
+  <rect x="0" y="0" width="4" height="420" fill="url(#accentGrad)"/>
+
+  <!-- Brand mark -->
+  <rect x="64" y="52" width="36" height="36" rx="8" fill="url(#markGrad)" opacity="0.9"/>
+  <rect x="70" y="58" width="24" height="24" rx="5" fill="#0a0a0c" opacity="0.3"/>
+
+  <!-- Title -->
+  <text x="112" y="82" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="800" fill="#e4e4e7" letter-spacing="-1">
+    pi<tspan fill="url(#accentGrad)">-designer</tspan>
+  </text>
+
+  <!-- Tagline -->
+  <text x="64" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#71717a">
+    Native Pi design engineering extension
+  </text>
+
+  <!-- Feature pills -->
+  <g font-family="system-ui, sans-serif" font-size="11" font-weight="600">
+    <!-- Pill 1: 380 Skills -->
+    <rect x="64" y="150" width="120" height="28" rx="6" fill="#d4a574" fill-opacity="0.08" stroke="#d4a574" stroke-opacity="0.15" stroke-width="1"/>
+    <text x="76" y="168" fill="#d4a574">380 SKILLS</text>
+
+    <!-- Pill 2: 16 Features -->
+    <rect x="196" y="150" width="120" height="28" rx="6" fill="#4a7c7e" fill-opacity="0.08" stroke="#4a7c7e" stroke-opacity="0.15" stroke-width="1"/>
+    <text x="208" y="168" fill="#4a7c7e">16 FEATURES</text>
+
+    <!-- Pill 3: 13 APIs -->
+    <rect x="328" y="150" width="120" height="28" rx="6" fill="#5b6f3a" fill-opacity="0.1" stroke="#5b6f3a" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="340" y="168" fill="#5b6f3a">13 PI APIS</text>
+
+    <!-- Pill 4: ~575 tokens -->
+    <rect x="460" y="150" width="130" height="28" rx="6" fill="#b45309" fill-opacity="0.1" stroke="#b45309" stroke-opacity="0.15" stroke-width="1"/>
+    <text x="472" y="168" fill="#b45309">~575 TOK/TURN</text>
+  </g>
+
+  <!-- Install command -->
+  <rect x="64" y="208" width="340" height="36" rx="8" fill="#14110d" stroke="#d4a574" stroke-opacity="0.08" stroke-width="1"/>
+  <text x="80" y="231" font-family="'JetBrains Mono', 'SF Mono', monospace" font-size="13" fill="#4a7c7e">$</text>
+  <text x="96" y="231" font-family="'JetBrains Mono', 'SF Mono', monospace" font-size="13" fill="#d4a574">pi install npm:pi-designer</text>
+
+  <!-- Feature cards -->
+  <g font-family="system-ui, sans-serif">
+    <!-- Card 1: Always-on Rules -->
+    <rect x="64" y="272" width="270" height="60" rx="10" fill="#0f0f12" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+    <rect x="76" y="284" width="22" height="22" rx="5" fill="#d4a574" fill-opacity="0.12"/>
+    <text x="82" y="299" font-size="10" font-weight="700" fill="#d4a574">R</text>
+    <text x="108" y="294" font-size="11" font-weight="600" fill="#e4e4e7">Always-on design rules</text>
+    <text x="108" y="310" font-size="9.5" fill="#71717a">Shadows, radius, contrast, motion</text>
+    <text x="108" y="322" font-size="9.5" fill="#71717a">Injected every turn, can't be skipped</text>
+
+    <!-- Card 2: Deferred Skills -->
+    <rect x="350" y="272" width="270" height="60" rx="10" fill="#0f0f12" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+    <rect x="362" y="284" width="22" height="22" rx="5" fill="#4a7c7e" fill-opacity="0.12"/>
+    <text x="368" y="299" font-size="10" font-weight="700" fill="#4a7c7e">S</text>
+    <text x="394" y="294" font-size="11" font-weight="600" fill="#e4e4e7">380 deferred skills</text>
+    <text x="394" y="310" font-size="9.5" fill="#71717a">Cyberpunk, solarpunk, brutalist,</text>
+    <text x="394" y="322" font-size="9.5" fill="#71717a">wabi-sabi, glassmorphic, +375 more</text>
+
+    <!-- Card 3: Design Deck -->
+    <rect x="636" y="272" width="270" height="60" rx="10" fill="#0f0f12" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+    <rect x="648" y="284" width="22" height="22" rx="5" fill="#5b6f3a" fill-opacity="0.15"/>
+    <text x="654" y="299" font-size="10" font-weight="700" fill="#5b6f3a">D</text>
+    <text x="680" y="294" font-size="11" font-weight="600" fill="#e4e4e7">Visual design deck</text>
+    <text x="680" y="310" font-size="9.5" fill="#71717a">Browser previews, SSE streaming,</text>
+    <text x="680" y="322" font-size="9.5" fill="#71717a">code blocks, mermaid, save/export</text>
+
+    <!-- Card 4: FSD Architecture -->
+    <rect x="922" y="272" width="270" height="60" rx="10" fill="#0f0f12" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+    <rect x="934" y="284" width="22" height="22" rx="5" fill="#b45309" fill-opacity="0.12"/>
+    <text x="940" y="299" font-size="10" font-weight="700" fill="#b45309">F</text>
+    <text x="966" y="294" font-size="11" font-weight="600" fill="#e4e4e7">Feature-sliced architecture</text>
+    <text x="966" y="310" font-size="9.5" fill="#71717a">app, features, entities, shared</text>
+    <text x="966" y="322" font-size="9.5" fill="#71717a">Zero lateral imports, enforced</text>
+  </g>
+
+  <!-- Architecture strip -->
+  <text x="64" y="372" font-family="'JetBrains Mono', monospace" font-size="10" fill="#52525b">
+    <tspan fill="#8a8278">app</tspan><tspan fill="#4a7c7e"> -> </tspan><tspan fill="#8a8278">features</tspan><tspan fill="#4a7c7e"> -> </tspan><tspan fill="#8a8278">entities</tspan><tspan fill="#4a7c7e"> + </tspan><tspan fill="#8a8278">shared</tspan>
+    <tspan dx="20" fill="#d4a574">6 hooks</tspan>
+    <tspan dx="10" fill="#3f3f46">|</tspan>
+    <tspan dx="10" fill="#d4a574">2 tools</tspan>
+    <tspan dx="10" fill="#3f3f46">|</tspan>
+    <tspan dx="10" fill="#d4a574">3 commands</tspan>
+    <tspan dx="10" fill="#3f3f46">|</tspan>
+    <tspan dx="10" fill="#d4a574">2 shortcuts</tspan>
+    <tspan dx="10" fill="#3f3f46">|</tspan>
+    <tspan dx="10" fill="#d4a574">1 flag</tspan>
+  </text>
+
+  <!-- Bottom: hook events -->
+  <text x="64" y="394" font-family="'JetBrains Mono', monospace" font-size="9" fill="#3f3f46">
+    before_agent_start | session_start | turn_end | agent_end | agent_start | tool_execution_end
+  </text>
+</svg>

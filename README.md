@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.svg" alt="pi-designer" width="100%">
+</p>
+
 # pi-designer
 
 A native Pi design engineering extension. Always-on design rules, 380 deferred skills, a visual design deck, and 13 Pi API integrations — all in a feature-sliced architecture.

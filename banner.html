@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pi-designer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0a0a0c;
+  color: #e4e4e7;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Ambient dot texture (dither-inspired, very subtle) ---- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at center, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Top glow ---- */
+body::after {
+  content: '';
+  position: fixed;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(212, 165, 116, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Banner ---- */
+.banner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem 3rem;
+}
+
+/* ---- Title block ---- */
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #d4a574 0%, #4a7c7e 100%);
+  box-shadow: 0 2px 12px rgba(212, 165, 116, 0.25);
+  flex-shrink: 0;
+  position: relative;
+  top: 8px;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+h1 .accent {
+  color: transparent;
+  background: linear-gradient(135deg, #d4a574, #e0b585);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.tagline {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: #8a8278;
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+  text-wrap: pretty;
+}
+
+/* ---- Install bar ---- */
+.install-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.code-block {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  background: #14110d;
+  border: 1px solid rgba(212, 184, 150, 0.08);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  color: #d4a574;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.code-block::before {
+  content: '$';
+  color: #4a7c7e;
+  font-weight: 700;
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.badge-pi {
+  background: rgba(212, 165, 116, 0.1);
+  color: #d4a574;
+  border: 1px solid rgba(212, 165, 116, 0.15);
+}
+
+.badge-version {
+  background: rgba(74, 124, 126, 0.1);
+  color: #4a7c7e;
+  border: 1px solid rgba(74, 124, 126, 0.15);
+}
+
+/* ---- Stats grid ---- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(212, 184, 150, 0.06);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+
+.stat {
+  background: #0f0f12;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  transition: background 0.2s ease-out;
+}
+
+.stat:hover {
+  background: #14110d;
+}
+
+.stat-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #d4a574;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #71717a;
+  margin-top: 0.5rem;
+}
+
+/* ---- Feature grid ---- */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(212, 184, 150, 0.06);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.feature {
+  background: #0f0f12;
+  padding: 1.2rem 1.2rem 1.4rem;
+  transition: background 0.2s ease-out;
+}
+
+.feature:hover {
+  background: #14110d;
+}
+
+.feature-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+}
+
+.icon-rules { background: rgba(212, 165, 116, 0.12); color: #d4a574; }
+.icon-skills { background: rgba(74, 124, 126, 0.12); color: #4a7c7e; }
+.icon-deck { background: rgba(91, 111, 58, 0.12); color: #5b6f3a; }
+.icon-audit { background: rgba(180, 83, 9, 0.12); color: #b45309; }
+.icon-fsd { background: rgba(212, 165, 116, 0.12); color: #d4a574; }
+.icon-api { background: rgba(74, 124, 126, 0.12); color: #4a7c7e; }
+
+.feature-title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+
+.feature-desc {
+  font-size: 0.75rem;
+  color: #71717a;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* ---- Architecture strip ---- */
+.arch-strip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #52525b;
+  padding: 1rem 1.2rem;
+  background: #0f0f12;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 184, 150, 0.06);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.arch-strip .layer {
+  color: #8a8278;
+}
+
+.arch-strip .arrow {
+  color: #4a7c7e;
+}
+
+.arch-strip .count {
+  color: #d4a574;
+}
+
+/* ---- Footer ---- */
+.footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #3f3f46;
+  font-family: 'JetBrains Mono', monospace;
+  padding-top: 1rem;
+}
+
+.footer a {
+  color: #52525b;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer a:hover { color: #d4a574; }
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .features { grid-template-columns: 1fr; }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <div class="brand">
+    <div class="brand-mark"></div>
+    <h1>pi<span class="accent">-designer</span></h1>
+  </div>
+  <p class="tagline">Native Pi design engineering. Always-on rules, 380 deferred skills, visual design deck.</p>
+
+  <div class="install-bar">
+    <div class="code-block">pi install npm:pi-designer</div>
+    <span class="badge badge-pi">native</span>
+    <span class="badge badge-version">v6.0.0</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">380</div>
+      <div class="stat-label">Design skills</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">16</div>
+      <div class="stat-label">Feature slices</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">13</div>
+      <div class="stat-label">Pi API calls</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">~575</div>
+      <div class="stat-label">Tokens / turn</div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon icon-rules">R</div>
+      <div class="feature-title">Always-on design rules</div>
+      <div class="feature-desc">Shadows, radius, contrast, animation, spacing — injected every turn. The model can't skip them.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon icon-skills">S</div>
+      <div class="feature-title">380 deferred skills</div>
+      <div class="feature-desc">Cyberpunk, solarpunk, brutalist, wabi-sabi, glassmorphic, pixel-art, and 374 more. Zero context cost until loaded.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon icon-deck">D</div>
+      <div class="feature-title">Visual design deck</div>
+      <div class="feature-desc">Live browser deck with Prism.js code, Mermaid diagrams, HTML previews, SSE streaming, and keyboard nav.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon icon-audit">A</div>
+      <div class="feature-title">Post-turn audit</div>
+      <div class="feature-desc">After each turn, scans modified UI files for AI-default patterns and runs validators via pi.exec().</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon icon-fsd">F</div>
+      <div class="feature-title">Feature-sliced design</div>
+      <div class="feature-desc">Strict FSD: app, features, entities, shared. Zero lateral imports. Enforced by release checks.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon icon-api">P</div>
+      <div class="feature-title">13 Pi API integrations</div>
+      <div class="feature-desc">Tools, commands, shortcuts, flags, hooks, widgets, status, renderers, session naming, exec, appendEntry.</div>
+    </div>
+  </div>
+
+  <div class="arch-strip">
+<span class="layer">app</span><span class="arrow"> -> </span><span class="layer">features</span><span class="arrow"> -> </span><span class="layer">entities</span><span class="arrow"> + </span><span class="layer">shared</span><br>
+<span class="count">16 features</span> <span class="arrow">|</span> <span class="count">6 hooks</span> <span class="arrow">|</span> <span class="count">2 tools</span> <span class="arrow">|</span> <span class="count">3 commands</span> <span class="arrow">|</span> <span class="count">2 shortcuts</span> <span class="arrow">|</span> <span class="count">1 flag</span> <span class="arrow">|</span> <span class="count">1 renderer</span><br>
+<span class="arrow">before_agent_start</span> <span class="arrow">|</span> <span class="arrow">session_start</span> <span class="arrow">|</span> <span class="arrow">turn_end</span> <span class="arrow">|</span> <span class="arrow">agent_end</span> <span class="arrow">|</span> <span class="arrow">agent_start</span> <span class="arrow">|</span> <span class="arrow">tool_execution_end</span>
+  </div>
+
+  <div class="footer">
+    <a href="https://github.com/drvova/pi-designer">github.com/drvova/pi-designer</a>
+  </div>
+</div>
+
+</body>
+</html>
